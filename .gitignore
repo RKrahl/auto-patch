@@ -1,0 +1,5 @@
+/.env
+/.version
+/MANIFEST
+/build/
+/dist/
