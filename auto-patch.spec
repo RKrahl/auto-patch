@@ -6,7 +6,7 @@ Summary:	$description
 License:	Apache-2.0
 Group:		System/Management
 Source:		%{name}-%{version}.tar.gz
-BuildRequires:	python3-base >= 3.4
+BuildRequires:	python3-base >= 3.5
 Requires:	zypper
 BuildArch:	noarch
 BuildRoot:	%{_tmppath}/%{name}-%{version}-build
