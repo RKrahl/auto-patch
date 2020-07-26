@@ -1,0 +1,6 @@
+[Unit]
+Description=Install available patches
+
+[Service]
+Type=oneshot
+ExecStart=/usr/sbin/auto-patch
