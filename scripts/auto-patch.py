@@ -86,6 +86,6 @@ if __name__ == "__main__":
             msg.set_content(tmpf.read())
             msg['From'] = mailfrom
             msg['To'] = mailto
-            msg['subject'] = mailsubject
+            msg['Subject'] = mailsubject
             with smtplib.SMTP('localhost') as smtp:
                 smtp.send_message(msg)

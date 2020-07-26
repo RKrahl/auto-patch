@@ -2,8 +2,7 @@
 
 This package provides a script to call zypper to install security and
 other system updates.  It also provides systemd unit files to
-automatically call that script regularly.  Since the script depends on
-zypper, it will probably only work for openSUSE.
+automatically call that script regularly.
 """
 
 import distutils.command.sdist

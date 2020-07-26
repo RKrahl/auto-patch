@@ -3,8 +3,10 @@ Automatically install security and other system updates
 
 This package provides a script to call zypper to install security and
 other system updates.  It also provides systemd unit files to
-automatically call that script regularly.  Since the script depends on
-zypper, it will probably only work for openSUSE.
+automatically call that script regularly.
+
+Since the script depends on zypper, it will probably only work for
+SUSE distributions (openSUSE and SLES).
 
 
 System requirements
@@ -12,7 +14,7 @@ System requirements
 
 Python:
 
-+ Python 3.4 or newer.
++ Python 3.5 or newer.
 
 External programs:
 
