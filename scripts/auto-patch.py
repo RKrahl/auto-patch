@@ -2,10 +2,19 @@
 """Call zypper to install security and other system updates.
 """
 
+from email.message import EmailMessage
+import getpass
 import logging
+import os
+import smtplib
+import socket
 import subprocess
 import tempfile
-import sys
+
+host = socket.getfqdn()
+mailfrom = "%s@%s" % (getpass.getuser(), host)
+mailto = os.environ.get('MAILTO', None) or ("root@%s" % host)
+mailsubject = "auto-patch %s" % host
 
 
 class Zypper:
@@ -71,8 +80,12 @@ def patch(stdout=None):
 
 if __name__ == "__main__":
     with tempfile.TemporaryFile(mode='w+t') as tmpf:
-        if not patch(stdout=tmpf):
-            return
-        tmpf.seek(0)
-        output = tmpf.read()
-        print(output)
+        if patch(stdout=tmpf):
+            msg = EmailMessage()
+            tmpf.seek(0)
+            msg.set_content(tmpf.read())
+            msg['From'] = mailfrom
+            msg['To'] = mailto
+            msg['subject'] = mailsubject
+            with smtplib.SMTP('localhost') as smtp:
+                smtp.send_message(msg)
