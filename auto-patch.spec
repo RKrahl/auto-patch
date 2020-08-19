@@ -49,7 +49,7 @@ cp -p systemd/* %{buildroot}%{_unitdir}
 
 %files
 %defattr(-,root,root)
-%doc README.rst
+%doc README.rst CHANGES.rst
 %license LICENSE.txt
 %exclude %{python3_sitelib}/*
 %{_sbindir}/auto-patch
