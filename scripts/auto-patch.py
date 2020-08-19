@@ -56,8 +56,11 @@ class Zypper:
 
     @classmethod
     def ps(cls, stdout=None):
+        # ps: list processes using deleted files
+        # 0: ok
+        # 102: reboot required
         args = ["--quiet", "ps"]
-        return cls.call(args, stdout=stdout)
+        return cls.call(args, stdout=stdout, retcodes={102})
 
 
 def patch(stdout=None):
@@ -70,12 +73,14 @@ def patch(stdout=None):
             break
         elif rc == 102:
             # patch requires reboot.
-            # should normally not happen, as we skipped interactive patches.
             break
         elif rc == 103:
             # restart of package manager needed.
             continue
-    Zypper.ps(stdout=stdout)
+    rc = Zypper.ps(stdout=stdout)
+    if rc == 102:
+        # zypper ps reports that reboot is required.
+        print("\nreboot is required", file=stdout)
     return True
 
 if __name__ == "__main__":
