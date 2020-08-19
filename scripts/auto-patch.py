@@ -56,8 +56,11 @@ class Zypper:
 
     @classmethod
     def ps(cls, stdout=None):
+        # ps: list processes using deleted files
+        # 0: ok
+        # 102: reboot required
         args = ["--quiet", "ps"]
-        return cls.call(args, stdout=stdout)
+        return cls.call(args, stdout=stdout, retcodes={102})
 
 
 def patch(stdout=None):
