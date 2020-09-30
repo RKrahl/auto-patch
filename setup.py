@@ -54,7 +54,7 @@ setup(
     requires = [],
     scripts = ["scripts/auto-patch.py"],
     classifiers = [
-        "Development Status :: 1 - Planning",
+        "Development Status :: 4 - Beta",
         "Intended Audience :: System Administrators",
         "License :: OSI Approved :: Apache Software License",
         "Operating System :: POSIX :: Linux",
