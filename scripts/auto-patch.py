@@ -17,6 +17,11 @@ mailto = os.environ.get('MAILTO', None) or ("root@%s" % host)
 mailsubject = "auto-patch %s" % host
 
 
+class ZypperLockedError(Exception):
+    def __init__(self):
+        super().__init__("ZYPP library is locked")
+
+
 class Zypper:
 
     _zypper = "/usr/bin/zypper"
@@ -26,7 +31,9 @@ class Zypper:
         cmd = [cls._zypper] + args
         proc = subprocess.run(cmd, stdout=stdout, stderr=subprocess.PIPE,
                               universal_newlines=True)
-        if (proc.returncode != 0 and
+        if proc.returncode == 7:
+            raise ZypperLockedError()
+        elif (proc.returncode != 0 and
             not (retcodes and proc.returncode in retcodes)):
             proc.check_returncode()
         return proc.returncode
