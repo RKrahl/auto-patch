@@ -10,11 +10,14 @@ import smtplib
 import socket
 import subprocess
 import tempfile
+from time import sleep
 
 host = socket.getfqdn()
 mailfrom = "%s@%s" % (getpass.getuser(), host)
 mailto = os.environ.get('MAILTO', None) or ("root@%s" % host)
 mailsubject = "auto-patch %s" % host
+lock_max_tries = 30
+lock_wait = 60
 
 
 class ZypperLockedError(Exception):
@@ -71,24 +74,38 @@ class Zypper:
 
 
 def patch(stdout=None):
-    if Zypper.patch_check(stdout=stdout) == 0:
-        return False
+    try_count = 0
     while True:
-        Zypper.list_patches(stdout=stdout)
-        rc = Zypper.patch(stdout=stdout)
-        if rc == 0:
-            break
-        elif rc == 102:
-            # patch requires reboot.
-            break
-        elif rc == 103:
-            # restart of package manager needed.
-            continue
-    rc = Zypper.ps(stdout=stdout)
-    if rc == 102:
-        # zypper ps reports that reboot is required.
-        print("\nreboot is required", file=stdout)
-    return True
+        try_count += 1
+        try:
+            if Zypper.patch_check(stdout=stdout) == 0:
+                return False
+            while True:
+                Zypper.list_patches(stdout=stdout)
+                rc = Zypper.patch(stdout=stdout)
+                if rc == 0:
+                    break
+                elif rc == 102:
+                    # patch requires reboot.
+                    break
+                elif rc == 103:
+                    # restart of package manager needed.
+                    continue
+            rc = Zypper.ps(stdout=stdout)
+            if rc == 102:
+                # zypper ps reports that reboot is required.
+                print("\nreboot is required", file=stdout)
+            return True
+        except ZypperLockedError:
+            if try_count < lock_max_tries:
+                print("\nZYPP library is locked.  Will try again ...",
+                      file=stdout)
+                sleep(lock_wait)
+                continue
+            else:
+                print("\nZYPP library is locked.  "
+                      "Giving up after %d tries." % try_count, file=stdout)
+                return True
 
 if __name__ == "__main__":
     with tempfile.TemporaryFile(mode='w+t') as tmpf:
