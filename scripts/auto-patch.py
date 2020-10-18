@@ -102,8 +102,6 @@ def patch(stdout=None):
             return True
         except ZypperLockedError:
             if try_count < lock_max_tries:
-                print("\nZYPP library is locked.  Will try again ...",
-                      file=stdout)
                 sleep(lock_wait)
                 continue
             else:
