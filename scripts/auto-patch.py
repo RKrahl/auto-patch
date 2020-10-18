@@ -6,11 +6,15 @@ from email.message import EmailMessage
 import getpass
 import logging
 import os
+import re
 import smtplib
 import socket
 import subprocess
 import sys
 import tempfile
+
+os.environ['LANG'] = "POSIX"
+os.environ['LC_CTYPE'] = "en_US.UTF-8"
 
 log_level = logging.INFO
 if os.isatty(sys.stderr.fileno()):
@@ -74,13 +78,21 @@ class Zypper:
 
 
 def patch(stdout=None):
+    check_line_re = r"^\d+ patch(:?es)? needed \(\d+ security patch(:?es)?\)$"
+    check_line_pattern = re.compile(check_line_re, flags=re.M)
     have_patches = False
     while True:
+        p = stdout.tell()
         if Zypper.patch_check(stdout=stdout) == 0:
             log.debug("no patches needed")
             break
+        stdout.seek(p)
+        m = check_line_pattern.search(stdout.read())
+        if m:
+            log.info(m.group(0))
+        else:
+            log.info("patches are needed")
         have_patches = True
-        log.info("installing patches ...")
         Zypper.list_patches(stdout=stdout)
         rc = Zypper.patch(stdout=stdout)
         if rc == 0:
