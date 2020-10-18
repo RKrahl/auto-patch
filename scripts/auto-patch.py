@@ -74,11 +74,13 @@ class Zypper:
 
 
 def patch(stdout=None):
-    if Zypper.patch_check(stdout=stdout) == 0:
-        log.debug("no patches needed")
-        return False
-    log.info("installing patches ...")
+    have_patches = False
     while True:
+        if Zypper.patch_check(stdout=stdout) == 0:
+            log.debug("no patches needed")
+            break
+        have_patches = True
+        log.info("installing patches ...")
         Zypper.list_patches(stdout=stdout)
         rc = Zypper.patch(stdout=stdout)
         if rc == 0:
@@ -91,6 +93,8 @@ def patch(stdout=None):
             log.debug("patches successfully installed, "
                       "need to check again for more patches")
             continue
+    if not have_patches:
+        return False
     rc = Zypper.ps(stdout=stdout)
     if rc == 102:
         # zypper ps reports that reboot is required.
