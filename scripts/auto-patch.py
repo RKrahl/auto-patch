@@ -74,13 +74,15 @@ class Zypper:
 
 
 def patch(stdout=None):
+    have_patches = False
     try_count = 0
     while True:
         try_count += 1
         try:
-            if Zypper.patch_check(stdout=stdout) == 0:
-                return False
             while True:
+                if Zypper.patch_check(stdout=stdout) == 0:
+                    return break
+                have_patches = True
                 Zypper.list_patches(stdout=stdout)
                 rc = Zypper.patch(stdout=stdout)
                 if rc == 0:
@@ -91,6 +93,8 @@ def patch(stdout=None):
                 elif rc == 103:
                     # restart of package manager needed.
                     continue
+            if not have_patches:
+                return False
             rc = Zypper.ps(stdout=stdout)
             if rc == 102:
                 # zypper ps reports that reboot is required.
@@ -105,7 +109,7 @@ def patch(stdout=None):
             else:
                 print("\nZYPP library is locked.  "
                       "Giving up after %d tries." % try_count, file=stdout)
-                return True
+                return have_patches
 
 if __name__ == "__main__":
     with tempfile.TemporaryFile(mode='w+t') as tmpf:
