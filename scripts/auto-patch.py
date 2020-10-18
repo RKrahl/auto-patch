@@ -13,14 +13,19 @@ import subprocess
 import sys
 import tempfile
 
+import systemd.journal
+
 os.environ['LANG'] = "POSIX"
 os.environ['LC_CTYPE'] = "en_US.UTF-8"
 
-log_level = logging.INFO
+journal = systemd.journal.JournalHandler(level=logging.INFO)
+logging.getLogger().addHandler(journal)
 if os.isatty(sys.stderr.fileno()):
-    log_level = logging.DEBUG
-
-logging.basicConfig(level=log_level, format="%(levelname)s: %(message)s")
+    stderr = logging.StreamHandler()
+    stderr.setLevel(logging.DEBUG)
+    stderr.setFormatter(logging.Formatter(fmt="%(levelname)s: %(message)s"))
+    logging.getLogger().addHandler(stderr)
+logging.getLogger().setLevel(logging.DEBUG)
 log = logging.getLogger(__name__)
 
 host = socket.getfqdn()

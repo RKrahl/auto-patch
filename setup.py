@@ -51,7 +51,7 @@ setup(
     author_email = "rolf@rotkraut.de",
     url = "https://github.com/RKrahl/auto-patch",
     license = "Apache-2.0",
-    requires = [],
+    requires = ["systemd"],
     scripts = ["scripts/auto-patch.py"],
     classifiers = [
         "Development Status :: 4 - Beta",
