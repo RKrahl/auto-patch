@@ -43,6 +43,7 @@ class Zypper:
     def call(cls, args, stdout=None, retcodes=None):
         cmd = [cls._zypper] + args
         log.debug("run: %s", " ".join(cmd))
+        stdout.flush()
         proc = subprocess.run(cmd, stdout=stdout, stderr=subprocess.PIPE,
                               universal_newlines=True)
         log.debug("return code from zypper: %d", proc.returncode)
@@ -111,7 +112,6 @@ def patch(stdout=None):
         return False
     rc = Zypper.ps(stdout=stdout)
     if rc == 102:
-        print("\nreboot is required", file=stdout)
         log.warning("reboot is required after installing patches")
     return True
 
@@ -122,7 +122,14 @@ def exchandler(type, value, traceback):
 if __name__ == "__main__":
     sys.excepthook = exchandler
     with tempfile.TemporaryFile(mode='w+t') as tmpf:
+        stdout = logging.StreamHandler(stream=tmpf)
+        stdout.setLevel(logging.WARNING)
+        stdout.setFormatter(logging.Formatter(fmt="\n%(message)s"))
+        logging.getLogger().addHandler(stdout)
         if patch(stdout=tmpf):
+            stdout.flush()
+            logging.getLogger().removeHandler(stdout)
+            stdout.close()
             tmpf.seek(0)
             report = tmpf.read()
             log.debug(report)
