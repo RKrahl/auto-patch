@@ -18,13 +18,14 @@ import systemd.journal
 os.environ['LANG'] = "POSIX"
 os.environ['LC_CTYPE'] = "en_US.UTF-8"
 
-journal = systemd.journal.JournalHandler(level=logging.INFO)
-logging.getLogger().addHandler(journal)
+journal_hdlr = systemd.journal.JournalHandler(level=logging.INFO)
+logging.getLogger().addHandler(journal_hdlr)
 if os.isatty(sys.stderr.fileno()):
-    stderr = logging.StreamHandler()
-    stderr.setLevel(logging.DEBUG)
-    stderr.setFormatter(logging.Formatter(fmt="%(levelname)s: %(message)s"))
-    logging.getLogger().addHandler(stderr)
+    stderr_hdlr = logging.StreamHandler()
+    stderr_hdlr.setLevel(logging.DEBUG)
+    fmt = "%(levelname)s: %(message)s"
+    stderr_hdlr.setFormatter(logging.Formatter(fmt=fmt))
+    logging.getLogger().addHandler(stderr_hdlr)
 logging.getLogger().setLevel(logging.DEBUG)
 log = logging.getLogger(__name__)
 
