@@ -114,7 +114,12 @@ def patch(stdout=None):
         log.warning("reboot is required after installing patches")
     return True
 
+def exchandler(type, value, traceback):
+    log.critical("%s: %s", type.__name__, value,
+                 exc_info=(type, value, traceback))
+
 if __name__ == "__main__":
+    sys.excepthook = exchandler
     with tempfile.TemporaryFile(mode='w+t') as tmpf:
         if patch(stdout=tmpf):
             tmpf.seek(0)
