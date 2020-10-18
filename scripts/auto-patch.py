@@ -117,9 +117,11 @@ def patch(stdout=None):
 if __name__ == "__main__":
     with tempfile.TemporaryFile(mode='w+t') as tmpf:
         if patch(stdout=tmpf):
-            msg = EmailMessage()
             tmpf.seek(0)
-            msg.set_content(tmpf.read())
+            report = tmpf.read()
+            log.debug(report)
+            msg = EmailMessage()
+            msg.set_content(report)
             msg['From'] = mailfrom
             msg['To'] = mailto
             msg['Subject'] = mailsubject
