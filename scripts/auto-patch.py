@@ -12,6 +12,7 @@ import socket
 import subprocess
 import sys
 import tempfile
+from time import sleep
 
 import systemd.journal
 
@@ -33,6 +34,13 @@ host = socket.getfqdn()
 mailfrom = "%s@%s" % (getpass.getuser(), host)
 mailto = os.environ.get('MAILTO', None) or ("root@%s" % host)
 mailsubject = "auto-patch %s" % host
+lock_max_tries = 30
+lock_wait = 60
+
+
+class ZypperLockedError(Exception):
+    def __init__(self):
+        super().__init__("ZYPP library is locked")
 
 
 class Zypper:
@@ -47,7 +55,9 @@ class Zypper:
         proc = subprocess.run(cmd, stdout=stdout, stderr=subprocess.PIPE,
                               universal_newlines=True)
         log.debug("return code from zypper: %d", proc.returncode)
-        if (proc.returncode != 0 and
+        if proc.returncode == 7:
+            raise ZypperLockedError()
+        elif (proc.returncode != 0 and
             not (retcodes and proc.returncode in retcodes)):
             proc.check_returncode()
         return proc.returncode
@@ -88,32 +98,46 @@ def patch(stdout=None):
     check_line_re = r"^\d+ patch(:?es)? needed \(\d+ security patch(:?es)?\)$"
     check_line_pattern = re.compile(check_line_re, flags=re.M)
     have_patches = False
+    try_count = 0
     while True:
-        p = stdout.tell()
-        if Zypper.patch_check(stdout=stdout) == 0:
-            log.debug("no patches needed")
-            break
-        stdout.seek(p)
-        m = check_line_pattern.search(stdout.read())
-        if m:
-            log.info(m.group(0))
-        else:
-            log.info("patches are needed")
-        have_patches = True
-        Zypper.list_patches(stdout=stdout)
-        rc = Zypper.patch(stdout=stdout)
-        log.info("patches successfully installed")
-        if rc == 0 or rc == 102:
-            break
-        elif rc == 103:
-            log.info("patch requires restart to check again for more patches")
-            continue
-    if not have_patches:
-        return False
-    rc = Zypper.ps(stdout=stdout)
-    if rc == 102:
-        log.warning("reboot is required after installing patches")
-    return True
+        try_count += 1
+        try:
+            while True:
+                p = stdout.tell()
+                if Zypper.patch_check(stdout=stdout) == 0:
+                    log.debug("no patches needed")
+                    break
+                stdout.seek(p)
+                m = check_line_pattern.search(stdout.read())
+                if m:
+                    log.info(m.group(0))
+                else:
+                    log.info("patches are needed")
+                have_patches = True
+                Zypper.list_patches(stdout=stdout)
+                rc = Zypper.patch(stdout=stdout)
+                log.info("patches successfully installed")
+                if rc == 0 or rc == 102:
+                    break
+                elif rc == 103:
+                    log.info("patch requires restart to "
+                             "check again for more patches")
+                    continue
+            if not have_patches:
+                return False
+            rc = Zypper.ps(stdout=stdout)
+            if rc == 102:
+                log.warning("reboot is required after installing patches")
+            return True
+        except ZypperLockedError:
+            if try_count < lock_max_tries:
+                log.info("ZYPP library is locked.  Will try again ...")
+                sleep(lock_wait)
+                continue
+            else:
+                log.error("ZYPP library is locked.  "
+                          "Giving up after %d tries." % try_count)
+                return have_patches
 
 def exchandler(type, value, traceback):
     log.critical("%s: %s", type.__name__, value,
