@@ -22,7 +22,7 @@ External programs:
 
 Required library packages:
 
-+ None
++ `python-systemd`_
 
 Optional library packages:
 
@@ -51,5 +51,6 @@ permissions and limitations under the License.
 
 
 .. _zypper: https://github.com/openSUSE/zypper
-.. _setuptools_scm: https://github.com/pypa/setuptools_scm/
+.. _python-systemd: https://github.com/systemd/python-systemd
+.. _setuptools_scm: https://github.com/pypa/setuptools_scm
 .. _Apache License: https://www.apache.org/licenses/LICENSE-2.0
