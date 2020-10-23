@@ -81,7 +81,7 @@ def patch(stdout=None):
         try:
             while True:
                 if Zypper.patch_check(stdout=stdout) == 0:
-                    return break
+                    break
                 have_patches = True
                 Zypper.list_patches(stdout=stdout)
                 rc = Zypper.patch(stdout=stdout)
