@@ -2,8 +2,20 @@ Changelog
 =========
 
 
+1.0.3 (2020-10-24)
+~~~~~~~~~~~~~~~~~~
+
+Bug fixes and minor changes
+---------------------------
+
++ Fix a syntx error.
+
+
 1.0.2 (2020-10-20)
 ~~~~~~~~~~~~~~~~~~
+
+.. warning::
+   Version 1.0.2 is broken, don't use it!
 
 Bug fixes and minor changes
 ---------------------------
