@@ -146,14 +146,14 @@ def exchandler(type, value, traceback):
 if __name__ == "__main__":
     sys.excepthook = exchandler
     with tempfile.TemporaryFile(mode='w+t') as tmpf:
-        stdout = logging.StreamHandler(stream=tmpf)
-        stdout.setLevel(logging.WARNING)
-        stdout.setFormatter(logging.Formatter(fmt="\n%(message)s"))
-        logging.getLogger().addHandler(stdout)
+        report_hdlr = logging.StreamHandler(stream=tmpf)
+        report_hdlr.setLevel(logging.WARNING)
+        report_hdlr.setFormatter(logging.Formatter(fmt="\n%(message)s"))
+        logging.getLogger().addHandler(report_hdlr)
         if patch(stdout=tmpf):
-            stdout.flush()
-            logging.getLogger().removeHandler(stdout)
-            stdout.close()
+            report_hdlr.flush()
+            logging.getLogger().removeHandler(report_hdlr)
+            report_hdlr.close()
             tmpf.seek(0)
             report = tmpf.read()
             log.debug(report)
