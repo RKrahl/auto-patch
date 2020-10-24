@@ -9,6 +9,7 @@ Source:		%{name}-%{version}.tar.gz
 BuildRequires:	python3-base >= 3.5
 BuildRequires:	systemd-rpm-macros
 Requires:	lsof
+Requires:	python3-systemd
 Requires:	systemd
 Requires:	zypper
 %systemd_requires

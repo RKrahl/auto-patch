@@ -2,6 +2,15 @@ Changelog
 =========
 
 
+1.1.0 (not yet released)
+~~~~~~~~~~~~~~~~~~~~~~~~
+
++ `#3`_, `#5`_: add logging.
+
+.. _#3: https://github.com/RKrahl/auto-patch/issues/3
+.. _#5: https://github.com/RKrahl/auto-patch/pull/5
+
+
 1.0.3 (2020-10-24)
 ~~~~~~~~~~~~~~~~~~
 
