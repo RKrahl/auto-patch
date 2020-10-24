@@ -14,6 +14,9 @@ Bug fixes and minor changes
 1.0.2 (2020-10-20)
 ~~~~~~~~~~~~~~~~~~
 
+.. warning::
+   Version 1.0.2 is broken, don't use it!
+
 Bug fixes and minor changes
 ---------------------------
 
