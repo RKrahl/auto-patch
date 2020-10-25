@@ -12,6 +12,10 @@ from glob import glob
 from pathlib import Path
 import string
 try:
+    import distutils_pytest
+except ImportError:
+    pass
+try:
     import setuptools_scm
     version = setuptools_scm.get_version()
     with open(".version", "wt") as f:
