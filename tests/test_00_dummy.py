@@ -1,6 +1,7 @@
 import pytest
-from conftest import call_auto_patch
+from conftest import AutoPatchCaller
 
 def test_dummy(tmpdir):
     with tmpdir.as_cwd():
-        call_auto_patch()
+        caller = AutoPatchCaller()
+        caller.run()
