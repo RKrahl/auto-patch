@@ -9,6 +9,15 @@ import pytest
 script_dir = Path(os.environ['BUILD_SCRIPTS_DIR'])
 
 
+class ZypperResult:
+    """Represent the result of one mock zypper call in AutoPatchCaller.
+    """
+    def __init__(self, cmd, returncode=0, stdout="", stderr=""):
+        self.cmd = cmd
+        self.returncode = returncode
+        self.stdout = stdout
+        self.stderr = stderr
+
 class AutoPatchCaller:
     """Execute the auto-patch.py script in a prepared Python interpreter.
 
@@ -19,19 +28,22 @@ class AutoPatchCaller:
 
     auto_patch_path = script_dir / "auto-patch.py"
 
-    def __init__(self):
+    def __init__(self, zypper_results):
         parser = argparse.ArgumentParser()
         parser.add_argument('--quiet', action='store_true')
         parser.add_argument('--non-interactive', action='store_true')
         parser.add_argument('subcmd')
         parser.add_argument('--skip-interactive', action='store_true')
         self.zypper_arg_parser = parser
+        self.zypper_results = list(zypper_results)
 
-    def _mock_subprocess_run(self, cmd, **kwargs):
+    def _mock_subprocess_run(self, cmd, stdout=None, **kwargs):
+        zypp_res = self.zypper_results.pop(0)
         args = self.zypper_arg_parser.parse_args(args=cmd[1:])
-        with open("zypper-call.log", "at") as f:
-            print(" ".join(cmd), file=f)
-        return subprocess.CompletedProcess(cmd, 0, stderr="")
+        assert args.subcmd == zypp_res.cmd
+        stdout.write(zypp_res.stdout)
+        return subprocess.CompletedProcess(cmd, zypp_res.returncode,
+                                           stderr=zypp_res.stderr)
 
     class _mock_smtp:
         def __init__(self, host='', **kwargs):
