@@ -1,3 +1,4 @@
+import argparse
 from multiprocessing import Process
 import os
 from pathlib import Path
@@ -18,7 +19,16 @@ class AutoPatchCaller:
 
     auto_patch_path = script_dir / "auto-patch.py"
 
+    def __init__(self):
+        parser = argparse.ArgumentParser()
+        parser.add_argument('--quiet', action='store_true')
+        parser.add_argument('--non-interactive', action='store_true')
+        parser.add_argument('subcmd')
+        parser.add_argument('--skip-interactive', action='store_true')
+        self.zypper_arg_parser = parser
+
     def _mock_subprocess_run(self, cmd, **kwargs):
+        args = self.zypper_arg_parser.parse_args(args=cmd[1:])
         with open("zypper-call.log", "at") as f:
             print(" ".join(cmd), file=f)
         return subprocess.CompletedProcess(cmd, 0, stderr="")
@@ -46,3 +56,4 @@ class AutoPatchCaller:
         p = Process(target=self._patch_and_call)
         p.start()
         p.join()
+        assert p.exitcode == 0
