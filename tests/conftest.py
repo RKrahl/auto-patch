@@ -1,4 +1,5 @@
 import argparse
+import json
 from multiprocessing import Process
 import os
 from pathlib import Path
@@ -6,6 +7,7 @@ import subprocess
 import pytest
 
 
+test_dir = Path(__file__).parent
 script_dir = Path(os.environ['BUILD_SCRIPTS_DIR'])
 
 
@@ -69,3 +71,17 @@ class AutoPatchCaller:
         p.start()
         p.join()
         assert p.exitcode == 0
+
+
+@pytest.fixture(scope="session")
+def zypper_result_data():
+    datafile = test_dir / "zypper-result-data.json"
+    with datafile.open("rt") as f:
+        return json.load(f)
+
+@pytest.fixture(scope="function")
+def auto_patch_caller(zypper_result_data, request):
+    test_name = request.node.nodeid.rsplit('/', maxsplit=1)[-1]
+    zypper_results = [ ZypperResult(**args)
+                       for args in zypper_result_data[test_name] ]
+    return AutoPatchCaller(zypper_results)

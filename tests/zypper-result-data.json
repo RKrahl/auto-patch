@@ -1,0 +1,26 @@
+{
+  "test_01_patch.py::test_no_patches": [
+    {
+      "cmd": "patch-check",
+      "stdout": "\n0 patches needed (0 security patches)\n"
+    }
+  ],
+  "test_01_patch.py::test_sec_patches": [
+    {
+      "cmd": "patch-check",
+      "returncode": 101,
+      "stdout": "\nCategory    | Patches\n------------+--------\nsecurity    | 2\nrecommended | 1\n\n3 patches needed (2 security patches)\n"
+    },
+    {
+      "cmd": "list-patches",
+      "stdout": "\nRepository             | Name               | Category    | Severity  | Interactive | Status | Since | Summary\n-----------------------+--------------------+-------------+-----------+-------------+--------+-------+-------------------------------------\nMain Update Repository | openSUSE-2020-1743 | security    | moderate  | ---         | needed | -     | Security update for gnutls\nMain Update Repository | openSUSE-2020-1744 | security    | important | ---         | needed | -     | Security update for freetype2\nMain Update Repository | openSUSE-2020-1745 | recommended | moderate  | ---         | needed | -     | Recommended update for yast2-network\n\n3 patches needed (2 security patches)\n\n"
+    },
+    {
+      "cmd": "patch",
+      "stdout": "\nThe following 3 NEW patches are going to be installed:\n  openSUSE-2020-1743 openSUSE-2020-1744 openSUSE-2020-1745\n\nThe following 15 packages are going to be upgraded:\n  ft2demos ftbench ftdiff ftdump ftgamma ftgrid ftinspect ftlint ftmulti ftstring ftvalid ftview libfreetype6 libgnutls30 yast2-network\n\n15 packages to upgrade.\nOverall download size: 2.2 MiB. Already cached: 0 B. After the operation, additional 21.6 KiB will be used.\nContinue? [y/n/v/...? shows all options] (y): y\n\n"
+    },
+    {
+      "cmd": "ps"
+    }
+  ]
+}
