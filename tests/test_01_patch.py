@@ -9,6 +9,9 @@ def test_no_patches(tmpdir, auto_patch_caller):
     """
     with tmpdir.as_cwd():
         auto_patch_caller.run()
+        # assert that no mail report has been sent:
+        with pytest.raises(FileNotFoundError):
+            auto_patch_caller.check_report()
 
 
 def test_rec_patches(tmpdir, auto_patch_caller):
@@ -16,6 +19,7 @@ def test_rec_patches(tmpdir, auto_patch_caller):
     """
     with tmpdir.as_cwd():
         auto_patch_caller.run()
+        auto_patch_caller.check_report()
 
 
 def test_sec_patches(tmpdir, auto_patch_caller):
@@ -23,6 +27,7 @@ def test_sec_patches(tmpdir, auto_patch_caller):
     """
     with tmpdir.as_cwd():
         auto_patch_caller.run()
+        auto_patch_caller.check_report()
 
 
 def test_zypp_patches(tmpdir, auto_patch_caller):
@@ -30,6 +35,7 @@ def test_zypp_patches(tmpdir, auto_patch_caller):
     """
     with tmpdir.as_cwd():
         auto_patch_caller.run()
+        auto_patch_caller.check_report()
 
 
 def test_patch_psproc(tmpdir, auto_patch_caller):
@@ -37,6 +43,7 @@ def test_patch_psproc(tmpdir, auto_patch_caller):
     """
     with tmpdir.as_cwd():
         auto_patch_caller.run()
+        auto_patch_caller.check_report()
 
 
 def test_patch_psreboot(tmpdir, auto_patch_caller):
@@ -44,3 +51,4 @@ def test_patch_psreboot(tmpdir, auto_patch_caller):
     """
     with tmpdir.as_cwd():
         auto_patch_caller.run()
+        auto_patch_caller.check_report()

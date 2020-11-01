@@ -3,6 +3,7 @@ import json
 from multiprocessing import Process
 import os
 from pathlib import Path
+import pickle
 import subprocess
 import pytest
 
@@ -56,8 +57,8 @@ class AutoPatchCaller:
         def __exit__(self, *args):
             pass
         def send_message(self, msg, **kwargs):
-            with open("report.msg", "wt") as f:
-                print(msg.as_string(), file=f)
+            with open("report.pickle", "wb") as f:
+                pickle.dump(msg, f)
 
     def _patch_and_call(self):
         import subprocess
@@ -72,6 +73,17 @@ class AutoPatchCaller:
         p.start()
         p.join()
         assert p.exitcode == 0
+
+    def check_report(self):
+        with open("report.pickle", "rb") as f:
+            msg = pickle.load(f)
+        body = msg.get_content()
+        idx = 0
+        for res in self.zypper_results:
+            idx = body.find(res.stdout, idx)
+            assert idx >= 0
+            idx += len(res.stdout)
+        return msg
 
 
 @pytest.fixture(scope="session")
