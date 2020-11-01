@@ -37,10 +37,11 @@ class AutoPatchCaller:
         parser.add_argument('subcmd')
         parser.add_argument('--skip-interactive', action='store_true')
         self.zypper_arg_parser = parser
-        self.zypper_results = list(zypper_results)
+        self.zypper_results = zypper_results
+        self.results_iter = iter(self.zypper_results)
 
     def _mock_subprocess_run(self, cmd, stdout=None, **kwargs):
-        zypp_res = self.zypper_results.pop(0)
+        zypp_res = next(self.results_iter)
         args = self.zypper_arg_parser.parse_args(args=cmd[1:])
         assert args.subcmd == zypp_res.cmd
         stdout.write(zypp_res.stdout)
