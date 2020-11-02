@@ -1,11 +1,11 @@
 {
-  "test_01_patch.py::test_no_patches": [
+  "no_patches": [
     {
       "cmd": "patch-check",
       "stdout": "\n0 patches needed (0 security patches)\n"
     }
   ],
-  "test_01_patch.py::test_rec_patches": [
+  "rec_patches": [
     {
       "cmd": "patch-check",
       "returncode": 100,
@@ -23,7 +23,7 @@
       "cmd": "ps"
     }
   ],
-  "test_01_patch.py::test_sec_patches": [
+  "sec_patches": [
     {
       "cmd": "patch-check",
       "returncode": 101,
@@ -41,7 +41,7 @@
       "cmd": "ps"
     }
   ],
-  "test_01_patch.py::test_zypp_patches": [
+  "zypp_patches": [
     {
       "cmd": "patch-check",
       "returncode": 101,
@@ -73,7 +73,7 @@
       "cmd": "ps"
     }
   ],
-  "test_01_patch.py::test_patch_psproc": [
+  "patch_psproc": [
     {
       "cmd": "patch-check",
       "returncode": 101,
@@ -92,7 +92,7 @@
       "stdout": "\nPID   | PPID | UID | User    | Command  | Service                                        | Files\n------+------+-----+---------+----------+------------------------------------------------+-------------------------------\n871   | 1    | 0   | root    | qemu-ga  | qemu-ga@virtio\\x2dports-org.qemu.guest_agent.0 | /lib64/libgcc_s.so.1\n1364  | 1    | 480 | polkitd | polkitd  | polkit                                         | /usr/lib64/libstdc++.so.6.0.28\n      |      |     |         |          |                                                | /lib64/libgcc_s.so.1\n4503  | 1    | 0   | root    | master   | postfix                                        | /usr/lib64/libstdc++.so.6.0.28\n      |      |     |         |          |                                                | /lib64/libgcc_s.so.1\n4506  | 4503 | 51  | postfix | qmgr     | postfix                                        | /usr/lib64/libstdc++.so.6.0.28\n      |      |     |         |          |                                                | /lib64/libgcc_s.so.1\n6748  | 4503 | 51  | postfix | pickup   | postfix                                        | /usr/lib64/libstdc++.so.6.0.28\n      |      |     |         |          |                                                | /lib64/libgcc_s.so.1\n10185 | 1    | 0   | root    | snapperd | dbus                                           | /usr/lib64/libstdc++.so.6.0.28\n      |      |     |         |          |                                                | /lib64/libgcc_s.so.1\n10852 | 4503 | 51  | postfix | tlsmgr   | postfix                                        | /usr/lib64/libstdc++.so.6.0.28\n      |      |     |         |          |                                                | /lib64/libgcc_s.so.1\n\n"
     }
   ],
-  "test_01_patch.py::test_patch_psreboot": [
+  "patch_psreboot": [
     {
       "cmd": "patch-check",
       "returncode": 100,

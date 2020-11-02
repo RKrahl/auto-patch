@@ -30,6 +30,21 @@ class AutoPatchCaller:
     """
 
     auto_patch_path = script_dir / "auto-patch.py"
+    _zypper_result_data = None
+
+    @classmethod
+    def _get_zypper_result_data(cls):
+        if not cls._zypper_result_data:
+            datafile = test_dir / "zypper-result-data.json"
+            with datafile.open("rt") as f:
+                cls._zypper_result_data = json.load(f)
+        return cls._zypper_result_data
+
+    @classmethod
+    def get_caller(cls, case):
+        data = cls._get_zypper_result_data()
+        zypper_results = [ ZypperResult(**args) for args in data[case] ]
+        return cls(zypper_results)
 
     def __init__(self, zypper_results):
         parser = argparse.ArgumentParser()
@@ -84,17 +99,3 @@ class AutoPatchCaller:
             assert idx >= 0
             idx += len(res.stdout)
         return msg
-
-
-@pytest.fixture(scope="session")
-def zypper_result_data():
-    datafile = test_dir / "zypper-result-data.json"
-    with datafile.open("rt") as f:
-        return json.load(f)
-
-@pytest.fixture(scope="function")
-def auto_patch_caller(zypper_result_data, request):
-    test_name = request.node.nodeid.rsplit('/', maxsplit=1)[-1]
-    zypper_results = [ ZypperResult(**args)
-                       for args in zypper_result_data[test_name] ]
-    return AutoPatchCaller(zypper_results)
