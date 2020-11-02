@@ -58,6 +58,7 @@ class AutoPatchCaller:
 
     def _mock_subprocess_run(self, cmd, stdout=None, **kwargs):
         zypp_res = next(self.results_iter)
+        assert Path(cmd[0]).name == "zypper"
         args = self.zypper_arg_parser.parse_args(args=cmd[1:])
         assert args.subcmd == zypp_res.cmd
         stdout.write(zypp_res.stdout)
