@@ -111,5 +111,399 @@
       "returncode": 102,
       "stdout": "\nPID   | PPID  | UID | User    | Command     | Service    | Files\n------+-------+-----+---------+-------------+------------+----------------------------\n937   | 1     | 0   | root    | python3.6   | firewalld  | /usr/lib64/libcrypto.so.1.1\n      |       |     |         |             |            | /usr/lib64/libssl.so.1.1\n938   | 1     | 0   | root    | sssd        | sssd       | /usr/lib64/libcrypto.so.1.1\n1084  | 938   | 0   | root    | sssd_be     | sssd       | /usr/lib64/libcrypto.so.1.1\n      |       |     |         |             |            | /usr/lib64/libssl.so.1.1\n1089  | 938   | 0   | root    | sssd_nss    | sssd       | /usr/lib64/libcrypto.so.1.1\n1090  | 938   | 0   | root    | sssd_pam    | sssd       | /usr/lib64/libcrypto.so.1.1\n1091  | 938   | 0   | root    | sssd_autofs | sssd       | /usr/lib64/libcrypto.so.1.1\n1840  | 1     | 0   | root    | sshd        | sshd       | /usr/lib64/libcrypto.so.1.1\n1886  | 1     | 44  | named   | named       | named      | /usr/lib64/libcrypto.so.1.1\n      |       |     |         |             |            | /usr/lib64/libssl.so.1.1\n1899  | 1     | 76  | ldap    | slapd       | slapd      | /usr/lib64/libcrypto.so.1.1\n      |       |     |         |             |            | /usr/lib64/libssl.so.1.1\n1921  | 1     | 0   | root    | automount   | autofs     | /usr/lib64/libssl.so.1.1\n      |       |     |         |             |            | /usr/lib64/libcrypto.so.1.1\n12235 | 1     | 0   | root    | python3.6   | auto-patch | /usr/lib64/libcrypto.so.1.1\n      |       |     |         |             |            | /usr/lib64/libssl.so.1.1\n14443 | 14413 | 51  | postfix | tlsmgr      | postfix    | /usr/lib64/libcrypto.so.1.1\n      |       |     |         |             |            | /usr/lib64/libssl.so.1.1\n\n"
     }
+  ],
+  "locked_start": [
+    {
+      "cmd": "patch-check",
+      "returncode": 7,
+      "stderr": "System management is locked by the application with pid 55 (zypper).\nClose this application before trying again.\n"
+    },
+    {
+      "cmd": "patch-check",
+      "returncode": 7,
+      "stderr": "System management is locked by the application with pid 55 (zypper).\nClose this application before trying again.\n"
+    },
+    {
+      "cmd": "patch-check",
+      "returncode": 7,
+      "stderr": "System management is locked by the application with pid 55 (zypper).\nClose this application before trying again.\n"
+    },
+    {
+      "cmd": "patch-check",
+      "returncode": 101,
+      "stdout": "\nCategory | Patches\n---------+--------\nsecurity | 2\n\n2 patches needed (2 security patches)\n"
+    },
+    {
+      "cmd": "list-patches",
+      "stdout": "\nRepository             | Name               | Category | Severity  | Interactive | Status | Since      | Summary\n-----------------------+--------------------+----------+-----------+-------------+--------+------------+--------------------------------------------------------\nMain Update Repository | openSUSE-2020-1780 | security | important | ---         | needed | 2020-11-03 | Security update for MozillaThunderbird and mozilla-nspr\nMain Update Repository | openSUSE-2020-1783 | security | important | ---         | needed | 2020-11-03 | Security update for xen\n\n2 patches needed (2 security patches)\n\n"
+    },
+    {
+      "cmd": "patch",
+      "stdout": "\nThe following 2 NEW patches are going to be installed:\n  openSUSE-2020-1780 openSUSE-2020-1783\n\nThe following 2 packages are going to be upgraded:\n  mozilla-nspr xen-libs\n\n2 packages to upgrade.\nOverall download size: 807.3 KiB. Already cached: 0 B. After the operation, additional 48.0 B will be used.\nContinue? [y/n/v/...? shows all options] (y): y\n\n"
+    },
+    {
+      "cmd": "ps"
+    }
+  ],
+  "locked_between": [
+    {
+      "cmd": "patch-check",
+      "returncode": 101,
+      "stdout": "\nCategory | Patches\n---------+--------\nsecurity | 2\n\n2 patches needed (2 security patches)\n"
+    },
+    {
+      "cmd": "list-patches",
+      "stdout": "\nRepository             | Name               | Category | Severity  | Interactive | Status | Since      | Summary\n-----------------------+--------------------+----------+-----------+-------------+--------+------------+--------------------------------------------------------\nMain Update Repository | openSUSE-2020-1780 | security | important | ---         | needed | 2020-11-03 | Security update for MozillaThunderbird and mozilla-nspr\nMain Update Repository | openSUSE-2020-1783 | security | important | ---         | needed | 2020-11-03 | Security update for xen\n\n2 patches needed (2 security patches)\n\n"
+    },
+    {
+      "cmd": "patch",
+      "returncode": 7,
+      "stderr": "System management is locked by the application with pid 58 (zypper).\nClose this application before trying again.\n"
+    },
+    {
+      "cmd": "patch-check",
+      "returncode": 7,
+      "stderr": "System management is locked by the application with pid 58 (zypper).\nClose this application before trying again.\n"
+    },
+    {
+      "cmd": "patch-check",
+      "returncode": 7,
+      "stderr": "System management is locked by the application with pid 58 (zypper).\nClose this application before trying again.\n"
+    },
+    {
+      "cmd": "patch-check",
+      "returncode": 101,
+      "stdout": "\nCategory | Patches\n---------+--------\nsecurity | 2\n\n2 patches needed (2 security patches)\n"
+    },
+    {
+      "cmd": "list-patches",
+      "returncode": 7,
+      "stderr": "System management is locked by the application with pid 60 (zypper).\nClose this application before trying again.\n"
+    },
+    {
+      "cmd": "patch-check",
+      "returncode": 101,
+      "stdout": "\nCategory | Patches\n---------+--------\nsecurity | 2\n\n2 patches needed (2 security patches)\n"
+    },
+    {
+      "cmd": "list-patches",
+      "stdout": "\nRepository             | Name               | Category | Severity  | Interactive | Status | Since      | Summary\n-----------------------+--------------------+----------+-----------+-------------+--------+------------+--------------------------------------------------------\nMain Update Repository | openSUSE-2020-1780 | security | important | ---         | needed | 2020-11-03 | Security update for MozillaThunderbird and mozilla-nspr\nMain Update Repository | openSUSE-2020-1783 | security | important | ---         | needed | 2020-11-03 | Security update for xen\n\n2 patches needed (2 security patches)\n\n"
+    },
+    {
+      "cmd": "patch",
+      "stdout": "\nThe following 2 NEW patches are going to be installed:\n  openSUSE-2020-1780 openSUSE-2020-1783\n\nThe following 2 packages are going to be upgraded:\n  mozilla-nspr xen-libs\n\n2 packages to upgrade.\nOverall download size: 807.3 KiB. Already cached: 0 B. After the operation, additional 48.0 B will be used.\nContinue? [y/n/v/...? shows all options] (y): y\n\n"
+    },
+    {
+      "cmd": "ps"
+    }
+  ],
+  "locked_final": [
+    {
+      "cmd": "patch-check",
+      "returncode": 101,
+      "stdout": "\nCategory | Patches\n---------+--------\nsecurity | 2\n\n2 patches needed (2 security patches)\n"
+    },
+    {
+      "cmd": "list-patches",
+      "returncode": 7,
+      "stderr": "System management is locked by the application with pid 62 (zypper).\nClose this application before trying again.\n"
+    },
+    {
+      "cmd": "patch-check",
+      "returncode": 7,
+      "stderr": "System management is locked by the application with pid 62 (zypper).\nClose this application before trying again.\n"
+    },
+    {
+      "cmd": "patch-check",
+      "returncode": 7,
+      "stderr": "System management is locked by the application with pid 62 (zypper).\nClose this application before trying again.\n"
+    },
+    {
+      "cmd": "patch-check",
+      "returncode": 7,
+      "stderr": "System management is locked by the application with pid 62 (zypper).\nClose this application before trying again.\n"
+    },
+    {
+      "cmd": "patch-check",
+      "returncode": 7,
+      "stderr": "System management is locked by the application with pid 62 (zypper).\nClose this application before trying again.\n"
+    },
+    {
+      "cmd": "patch-check",
+      "returncode": 7,
+      "stderr": "System management is locked by the application with pid 62 (zypper).\nClose this application before trying again.\n"
+    },
+    {
+      "cmd": "patch-check",
+      "returncode": 7,
+      "stderr": "System management is locked by the application with pid 62 (zypper).\nClose this application before trying again.\n"
+    },
+    {
+      "cmd": "patch-check",
+      "returncode": 7,
+      "stderr": "System management is locked by the application with pid 62 (zypper).\nClose this application before trying again.\n"
+    },
+    {
+      "cmd": "patch-check",
+      "returncode": 7,
+      "stderr": "System management is locked by the application with pid 62 (zypper).\nClose this application before trying again.\n"
+    },
+    {
+      "cmd": "patch-check",
+      "returncode": 7,
+      "stderr": "System management is locked by the application with pid 62 (zypper).\nClose this application before trying again.\n"
+    },
+    {
+      "cmd": "patch-check",
+      "returncode": 7,
+      "stderr": "System management is locked by the application with pid 62 (zypper).\nClose this application before trying again.\n"
+    },
+    {
+      "cmd": "patch-check",
+      "returncode": 7,
+      "stderr": "System management is locked by the application with pid 62 (zypper).\nClose this application before trying again.\n"
+    },
+    {
+      "cmd": "patch-check",
+      "returncode": 7,
+      "stderr": "System management is locked by the application with pid 62 (zypper).\nClose this application before trying again.\n"
+    },
+    {
+      "cmd": "patch-check",
+      "returncode": 7,
+      "stderr": "System management is locked by the application with pid 62 (zypper).\nClose this application before trying again.\n"
+    },
+    {
+      "cmd": "patch-check",
+      "returncode": 7,
+      "stderr": "System management is locked by the application with pid 62 (zypper).\nClose this application before trying again.\n"
+    },
+    {
+      "cmd": "patch-check",
+      "returncode": 7,
+      "stderr": "System management is locked by the application with pid 62 (zypper).\nClose this application before trying again.\n"
+    },
+    {
+      "cmd": "patch-check",
+      "returncode": 7,
+      "stderr": "System management is locked by the application with pid 62 (zypper).\nClose this application before trying again.\n"
+    },
+    {
+      "cmd": "patch-check",
+      "returncode": 7,
+      "stderr": "System management is locked by the application with pid 62 (zypper).\nClose this application before trying again.\n"
+    },
+    {
+      "cmd": "patch-check",
+      "returncode": 7,
+      "stderr": "System management is locked by the application with pid 62 (zypper).\nClose this application before trying again.\n"
+    },
+    {
+      "cmd": "patch-check",
+      "returncode": 7,
+      "stderr": "System management is locked by the application with pid 62 (zypper).\nClose this application before trying again.\n"
+    },
+    {
+      "cmd": "patch-check",
+      "returncode": 7,
+      "stderr": "System management is locked by the application with pid 62 (zypper).\nClose this application before trying again.\n"
+    },
+    {
+      "cmd": "patch-check",
+      "returncode": 7,
+      "stderr": "System management is locked by the application with pid 62 (zypper).\nClose this application before trying again.\n"
+    },
+    {
+      "cmd": "patch-check",
+      "returncode": 7,
+      "stderr": "System management is locked by the application with pid 62 (zypper).\nClose this application before trying again.\n"
+    },
+    {
+      "cmd": "patch-check",
+      "returncode": 7,
+      "stderr": "System management is locked by the application with pid 62 (zypper).\nClose this application before trying again.\n"
+    },
+    {
+      "cmd": "patch-check",
+      "returncode": 7,
+      "stderr": "System management is locked by the application with pid 62 (zypper).\nClose this application before trying again.\n"
+    },
+    {
+      "cmd": "patch-check",
+      "returncode": 7,
+      "stderr": "System management is locked by the application with pid 62 (zypper).\nClose this application before trying again.\n"
+    },
+    {
+      "cmd": "patch-check",
+      "returncode": 7,
+      "stderr": "System management is locked by the application with pid 62 (zypper).\nClose this application before trying again.\n"
+    },
+    {
+      "cmd": "patch-check",
+      "returncode": 7,
+      "stderr": "System management is locked by the application with pid 62 (zypper).\nClose this application before trying again.\n"
+    },
+    {
+      "cmd": "patch-check",
+      "returncode": 7,
+      "stderr": "System management is locked by the application with pid 62 (zypper).\nClose this application before trying again.\n"
+    },
+    {
+      "cmd": "patch-check",
+      "returncode": 7,
+      "stderr": "System management is locked by the application with pid 62 (zypper).\nClose this application before trying again.\n"
+    }
+  ],
+  "locked_complete": [
+    {
+      "cmd": "patch-check",
+      "returncode": 7,
+      "stderr": "System management is locked by the application with pid 65 (zypper).\nClose this application before trying again.\n"
+    },
+    {
+      "cmd": "patch-check",
+      "returncode": 7,
+      "stderr": "System management is locked by the application with pid 65 (zypper).\nClose this application before trying again.\n"
+    },
+    {
+      "cmd": "patch-check",
+      "returncode": 7,
+      "stderr": "System management is locked by the application with pid 65 (zypper).\nClose this application before trying again.\n"
+    },
+    {
+      "cmd": "patch-check",
+      "returncode": 7,
+      "stderr": "System management is locked by the application with pid 65 (zypper).\nClose this application before trying again.\n"
+    },
+    {
+      "cmd": "patch-check",
+      "returncode": 7,
+      "stderr": "System management is locked by the application with pid 65 (zypper).\nClose this application before trying again.\n"
+    },
+    {
+      "cmd": "patch-check",
+      "returncode": 7,
+      "stderr": "System management is locked by the application with pid 65 (zypper).\nClose this application before trying again.\n"
+    },
+    {
+      "cmd": "patch-check",
+      "returncode": 7,
+      "stderr": "System management is locked by the application with pid 65 (zypper).\nClose this application before trying again.\n"
+    },
+    {
+      "cmd": "patch-check",
+      "returncode": 7,
+      "stderr": "System management is locked by the application with pid 65 (zypper).\nClose this application before trying again.\n"
+    },
+    {
+      "cmd": "patch-check",
+      "returncode": 7,
+      "stderr": "System management is locked by the application with pid 65 (zypper).\nClose this application before trying again.\n"
+    },
+    {
+      "cmd": "patch-check",
+      "returncode": 7,
+      "stderr": "System management is locked by the application with pid 65 (zypper).\nClose this application before trying again.\n"
+    },
+    {
+      "cmd": "patch-check",
+      "returncode": 7,
+      "stderr": "System management is locked by the application with pid 65 (zypper).\nClose this application before trying again.\n"
+    },
+    {
+      "cmd": "patch-check",
+      "returncode": 7,
+      "stderr": "System management is locked by the application with pid 65 (zypper).\nClose this application before trying again.\n"
+    },
+    {
+      "cmd": "patch-check",
+      "returncode": 7,
+      "stderr": "System management is locked by the application with pid 65 (zypper).\nClose this application before trying again.\n"
+    },
+    {
+      "cmd": "patch-check",
+      "returncode": 7,
+      "stderr": "System management is locked by the application with pid 65 (zypper).\nClose this application before trying again.\n"
+    },
+    {
+      "cmd": "patch-check",
+      "returncode": 7,
+      "stderr": "System management is locked by the application with pid 65 (zypper).\nClose this application before trying again.\n"
+    },
+    {
+      "cmd": "patch-check",
+      "returncode": 7,
+      "stderr": "System management is locked by the application with pid 65 (zypper).\nClose this application before trying again.\n"
+    },
+    {
+      "cmd": "patch-check",
+      "returncode": 7,
+      "stderr": "System management is locked by the application with pid 65 (zypper).\nClose this application before trying again.\n"
+    },
+    {
+      "cmd": "patch-check",
+      "returncode": 7,
+      "stderr": "System management is locked by the application with pid 65 (zypper).\nClose this application before trying again.\n"
+    },
+    {
+      "cmd": "patch-check",
+      "returncode": 7,
+      "stderr": "System management is locked by the application with pid 65 (zypper).\nClose this application before trying again.\n"
+    },
+    {
+      "cmd": "patch-check",
+      "returncode": 7,
+      "stderr": "System management is locked by the application with pid 65 (zypper).\nClose this application before trying again.\n"
+    },
+    {
+      "cmd": "patch-check",
+      "returncode": 7,
+      "stderr": "System management is locked by the application with pid 65 (zypper).\nClose this application before trying again.\n"
+    },
+    {
+      "cmd": "patch-check",
+      "returncode": 7,
+      "stderr": "System management is locked by the application with pid 65 (zypper).\nClose this application before trying again.\n"
+    },
+    {
+      "cmd": "patch-check",
+      "returncode": 7,
+      "stderr": "System management is locked by the application with pid 65 (zypper).\nClose this application before trying again.\n"
+    },
+    {
+      "cmd": "patch-check",
+      "returncode": 7,
+      "stderr": "System management is locked by the application with pid 65 (zypper).\nClose this application before trying again.\n"
+    },
+    {
+      "cmd": "patch-check",
+      "returncode": 7,
+      "stderr": "System management is locked by the application with pid 65 (zypper).\nClose this application before trying again.\n"
+    },
+    {
+      "cmd": "patch-check",
+      "returncode": 7,
+      "stderr": "System management is locked by the application with pid 65 (zypper).\nClose this application before trying again.\n"
+    },
+    {
+      "cmd": "patch-check",
+      "returncode": 7,
+      "stderr": "System management is locked by the application with pid 65 (zypper).\nClose this application before trying again.\n"
+    },
+    {
+      "cmd": "patch-check",
+      "returncode": 7,
+      "stderr": "System management is locked by the application with pid 65 (zypper).\nClose this application before trying again.\n"
+    },
+    {
+      "cmd": "patch-check",
+      "returncode": 7,
+      "stderr": "System management is locked by the application with pid 65 (zypper).\nClose this application before trying again.\n"
+    },
+    {
+      "cmd": "patch-check",
+      "returncode": 7,
+      "stderr": "System management is locked by the application with pid 65 (zypper).\nClose this application before trying again.\n"
+    }
   ]
 }

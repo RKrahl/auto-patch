@@ -76,11 +76,16 @@ class AutoPatchCaller:
             with open("report.pickle", "wb") as f:
                 pickle.dump(msg, f)
 
+    def _mock_sleep(self, secs):
+        pass
+
     def _patch_and_call(self):
         import subprocess
         import smtplib
+        import time
         subprocess.run = self._mock_subprocess_run
         smtplib.SMTP = self._mock_smtp
+        time.sleep = self._mock_sleep
         with self.auto_patch_path.open("rt") as script:
             exec(script.read(), dict(__name__="__main__"))
 
