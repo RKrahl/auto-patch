@@ -7,3 +7,4 @@ include systemd/*
 include tests/conftest.py
 include tests/pytest.ini
 include tests/test_*.py
+include tests/zypper-result-data.json
