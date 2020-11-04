@@ -34,6 +34,14 @@ Optional library packages:
   package is only needed to build out of the plain development source
   tree as cloned from GitHub.
 
++ `pytest`_ >= 3.0
+
+  Only needed to run the test suite.
+
++ `distutils-pytest`_
+
+  Only needed to run the test suite.
+
 
 Copyright and License
 ---------------------
@@ -53,4 +61,6 @@ permissions and limitations under the License.
 .. _zypper: https://github.com/openSUSE/zypper
 .. _python-systemd: https://github.com/systemd/python-systemd
 .. _setuptools_scm: https://github.com/pypa/setuptools_scm
+.. _pytest: https://pytest.org/
+.. _distutils-pytest: https://github.com/RKrahl/distutils-pytest
 .. _Apache License: https://www.apache.org/licenses/LICENSE-2.0
