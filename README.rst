@@ -1,3 +1,13 @@
+|travis| |pypi|
+
+.. |travis| image:: https://img.shields.io/travis/com/RKrahl/auto-patch
+   :target: https://travis-ci.com/RKrahl/auto-patch
+   :alt: Travis build status
+
+.. |pypi| image:: https://img.shields.io/pypi/v/auto-patch
+   :target: https://pypi.org/project/auto-patch/
+   :alt: PyPI version
+
 Automatically install security and other system updates
 =======================================================
 
