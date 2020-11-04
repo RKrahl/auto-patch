@@ -5,10 +5,20 @@ Changelog
 1.1.0 (not yet released)
 ~~~~~~~~~~~~~~~~~~~~~~~~
 
+New features
+------------
+
 + `#3`_, `#5`_: add logging.
+
+Misc
+----
+
++ `#7`_, `#10`_: add a test suite.
 
 .. _#3: https://github.com/RKrahl/auto-patch/issues/3
 .. _#5: https://github.com/RKrahl/auto-patch/pull/5
+.. _#7: https://github.com/RKrahl/auto-patch/issues/7
+.. _#10: https://github.com/RKrahl/auto-patch/pull/10
 
 
 1.0.3 (2020-10-24)
