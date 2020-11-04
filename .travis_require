@@ -1,0 +1,3 @@
+systemd-python
+distutils-pytest
+pytest >=3.0.0
