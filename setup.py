@@ -57,6 +57,7 @@ setup(
     license = "Apache-2.0",
     requires = ["systemd"],
     scripts = ["scripts/auto-patch.py"],
+    data_files = [("/etc", ["etc/auto-patch.cfg"])],
     classifiers = [
         "Development Status :: 4 - Beta",
         "Intended Audience :: System Administrators",
