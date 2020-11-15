@@ -20,6 +20,11 @@ import systemd.journal
 os.environ['LANG'] = "POSIX"
 os.environ['LC_CTYPE'] = "en_US.UTF-8"
 
+try:
+    config_files = os.environ['AUTO_PATCH_CFG'].split(':')
+except KeyError:
+    config_files = "/etc/auto-patch.cfg"
+
 config_defaults = {
     'mailreport': {
         'report': "on",
@@ -38,7 +43,7 @@ config_defaults = {
 config = ConfigParser(comment_prefixes=('#', '!'))
 for k, v in config_defaults.items():
     config[k] = v
-config.read("/etc/auto-patch.cfg")
+config.read(config_files)
 
 journal_hdlr = systemd.journal.JournalHandler(level=logging.INFO)
 logging.getLogger().addHandler(journal_hdlr)
