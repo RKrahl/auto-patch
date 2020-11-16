@@ -53,7 +53,7 @@ class AutoPatchCaller:
         if config is None:
             config = { 'retry': { 'wait': "0" } }
         cp = ConfigParser()
-        for k in ('mailreport', 'retry'):
+        for k in ('mailreport', 'retry', 'logging'):
             cp[k] = {}
         for k, v in config.items():
             cp[k] = v

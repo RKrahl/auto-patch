@@ -39,17 +39,23 @@ config_defaults = {
         'max': "30",
         'wait': "60",
     },
+    'logging': {
+        'journal_level': "INFO",
+        'stderr_level': "DEBUG",
+        'report_level': "WARNING",
+    },
 }
 config = ConfigParser(comment_prefixes=('#', '!'))
 for k, v in config_defaults.items():
     config[k] = v
 config.read(config_files)
 
-journal_hdlr = systemd.journal.JournalHandler(level=logging.INFO)
+journal_level = config['logging'].get('journal_level')
+journal_hdlr = systemd.journal.JournalHandler(level=journal_level)
 logging.getLogger().addHandler(journal_hdlr)
 if os.isatty(sys.stderr.fileno()):
     stderr_hdlr = logging.StreamHandler()
-    stderr_hdlr.setLevel(logging.DEBUG)
+    stderr_hdlr.setLevel(config['logging'].get('stderr_level'))
     fmt = "%(levelname)s: %(message)s"
     stderr_hdlr.setFormatter(logging.Formatter(fmt=fmt))
     logging.getLogger().addHandler(stderr_hdlr)
@@ -166,7 +172,7 @@ if __name__ == "__main__":
     sys.excepthook = exchandler
     with tempfile.TemporaryFile(mode='w+t') as tmpf:
         report_hdlr = logging.StreamHandler(stream=tmpf)
-        report_hdlr.setLevel(logging.WARNING)
+        report_hdlr.setLevel(config['logging'].get('report_level'))
         report_hdlr.setFormatter(logging.Formatter(fmt="\n%(message)s"))
         logging.getLogger().addHandler(report_hdlr)
         if patch(stdout=tmpf):
