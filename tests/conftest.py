@@ -50,12 +50,12 @@ class AutoPatchCaller:
         return cls(zypper_results, config)
 
     def _create_config(self, config):
-        if config is None:
-            config = { 'retry': { 'wait': "0" } }
+        d = { 'mailreport': {}, 'retry': { 'wait': "0" }, 'logging': {} }
+        if config is not None:
+            for k in config.keys():
+                d[k].update(config[k])
         cp = ConfigParser()
-        for k in ('mailreport', 'retry', 'logging'):
-            cp[k] = {}
-        for k, v in config.items():
+        for k, v in d.items():
             cp[k] = v
         with open("auto-patch.cfg", 'wt') as f:
             cp.write(f)
