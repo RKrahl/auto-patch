@@ -2,6 +2,7 @@
 """Call zypper to install security and other system updates.
 """
 
+from configparser import ConfigParser
 from email.message import EmailMessage
 import getpass
 import logging
@@ -19,23 +20,47 @@ import systemd.journal
 os.environ['LANG'] = "POSIX"
 os.environ['LC_CTYPE'] = "en_US.UTF-8"
 
-journal_hdlr = systemd.journal.JournalHandler(level=logging.INFO)
+try:
+    config_files = os.environ['AUTO_PATCH_CFG'].split(':')
+except KeyError:
+    config_files = "/etc/auto-patch.cfg"
+
+config_defaults = {
+    'mailreport': {
+        'report': "on",
+        'hostname': socket.getfqdn(),
+        'user': getpass.getuser(),
+        'mailfrom': "%(user)s@%(hostname)s",
+        'mailto': "root@%(hostname)s",
+        'subject': "auto-patch %(hostname)s",
+        'mailhost': "localhost",
+    },
+    'retry': {
+        'max': "30",
+        'wait': "60",
+    },
+    'logging': {
+        'journal_level': "INFO",
+        'stderr_level': "DEBUG",
+        'report_level': "WARNING",
+    },
+}
+config = ConfigParser(comment_prefixes=('#', '!'))
+for k, v in config_defaults.items():
+    config[k] = v
+config.read(config_files)
+
+journal_level = config['logging'].get('journal_level')
+journal_hdlr = systemd.journal.JournalHandler(level=journal_level)
 logging.getLogger().addHandler(journal_hdlr)
 if os.isatty(sys.stderr.fileno()):
     stderr_hdlr = logging.StreamHandler()
-    stderr_hdlr.setLevel(logging.DEBUG)
+    stderr_hdlr.setLevel(config['logging'].get('stderr_level'))
     fmt = "%(levelname)s: %(message)s"
     stderr_hdlr.setFormatter(logging.Formatter(fmt=fmt))
     logging.getLogger().addHandler(stderr_hdlr)
 logging.getLogger().setLevel(logging.DEBUG)
 log = logging.getLogger(__name__)
-
-host = socket.getfqdn()
-mailfrom = "%s@%s" % (getpass.getuser(), host)
-mailto = os.environ.get('MAILTO', None) or ("root@%s" % host)
-mailsubject = "auto-patch %s" % host
-lock_max_tries = 30
-lock_wait = 60
 
 
 class ZypperLockedError(Exception):
@@ -130,9 +155,9 @@ def patch(stdout=None):
                 log.warning("reboot is required after installing patches")
             return True
         except ZypperLockedError:
-            if try_count < lock_max_tries:
+            if try_count < config['retry'].getint('max'):
                 log.info("ZYPP library is locked.  Will try again ...")
-                sleep(lock_wait)
+                sleep(config['retry'].getint('wait'))
                 continue
             else:
                 log.error("ZYPP library is locked.  "
@@ -147,7 +172,7 @@ if __name__ == "__main__":
     sys.excepthook = exchandler
     with tempfile.TemporaryFile(mode='w+t') as tmpf:
         report_hdlr = logging.StreamHandler(stream=tmpf)
-        report_hdlr.setLevel(logging.WARNING)
+        report_hdlr.setLevel(config['logging'].get('report_level'))
         report_hdlr.setFormatter(logging.Formatter(fmt="\n%(message)s"))
         logging.getLogger().addHandler(report_hdlr)
         if patch(stdout=tmpf):
@@ -157,10 +182,12 @@ if __name__ == "__main__":
             tmpf.seek(0)
             report = tmpf.read()
             log.debug(report)
-            msg = EmailMessage()
-            msg.set_content(report)
-            msg['From'] = mailfrom
-            msg['To'] = mailto
-            msg['Subject'] = mailsubject
-            with smtplib.SMTP('localhost') as smtp:
-                smtp.send_message(msg)
+            if config['mailreport'].getboolean('report'):
+                msg = EmailMessage()
+                msg.set_content(report)
+                msg['From'] = config['mailreport'].get('mailfrom')
+                msg['To'] = config['mailreport'].get('mailto')
+                msg['Subject'] = config['mailreport'].get('subject')
+                mailhost = config['mailreport'].get('mailhost')
+                with smtplib.SMTP(mailhost) as smtp:
+                    smtp.send_message(msg)

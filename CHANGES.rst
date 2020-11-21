@@ -8,6 +8,7 @@ Changelog
 New features
 ------------
 
++ `#6`_, `#11`_: add a configuration file.
 + `#3`_, `#5`_: add logging.
 
 Misc
@@ -17,8 +18,10 @@ Misc
 
 .. _#3: https://github.com/RKrahl/auto-patch/issues/3
 .. _#5: https://github.com/RKrahl/auto-patch/pull/5
+.. _#6: https://github.com/RKrahl/auto-patch/issues/6
 .. _#7: https://github.com/RKrahl/auto-patch/issues/7
 .. _#10: https://github.com/RKrahl/auto-patch/pull/10
+.. _#11: https://github.com/RKrahl/auto-patch/pull/11
 
 
 1.0.3 (2020-10-24)

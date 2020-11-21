@@ -5,11 +5,13 @@ import pytest
 from conftest import AutoPatchCaller
 
 
+no_wait = { 'retry': { 'wait': "0" } }
+
 def test_locked_at_start(tmpdir):
     """ZYPP library is locked when auto-patch is started.
     """
     with tmpdir.as_cwd():
-        caller = AutoPatchCaller.get_caller("locked_start")
+        caller = AutoPatchCaller.get_caller("locked_start", config=no_wait)
         caller.run()
         caller.check_report()
 
@@ -18,7 +20,7 @@ def test_locked_in_between(tmpdir):
     """The auto-patch workflow is interrupted by intermittent locks.
     """
     with tmpdir.as_cwd():
-        caller = AutoPatchCaller.get_caller("locked_between")
+        caller = AutoPatchCaller.get_caller("locked_between", config=no_wait)
         caller.run()
         caller.check_report()
 
@@ -28,7 +30,7 @@ def test_locked_final(tmpdir):
     auto-patch eventually gives up waiting.
     """
     with tmpdir.as_cwd():
-        caller = AutoPatchCaller.get_caller("locked_final")
+        caller = AutoPatchCaller.get_caller("locked_final", config=no_wait)
         caller.run()
         caller.check_report()
 
@@ -40,7 +42,7 @@ def test_locked_complete(tmpdir):
     presence of available patches.
     """
     with tmpdir.as_cwd():
-        caller = AutoPatchCaller.get_caller("locked_complete")
+        caller = AutoPatchCaller.get_caller("locked_complete", config=no_wait)
         caller.run()
         # assert that no mail report has been sent:
         with pytest.raises(FileNotFoundError):

@@ -1,4 +1,5 @@
 import argparse
+from configparser import ConfigParser
 import json
 from multiprocessing import Process
 import os
@@ -10,6 +11,8 @@ import pytest
 
 test_dir = Path(__file__).parent
 script_dir = Path(os.environ['BUILD_SCRIPTS_DIR'])
+
+os.environ['AUTO_PATCH_CFG'] = "auto-patch.cfg"
 
 
 class ZypperResult:
@@ -41,12 +44,24 @@ class AutoPatchCaller:
         return cls._zypper_result_data
 
     @classmethod
-    def get_caller(cls, case):
+    def get_caller(cls, case, config=None):
         data = cls._get_zypper_result_data()
         zypper_results = [ ZypperResult(**args) for args in data[case] ]
-        return cls(zypper_results)
+        return cls(zypper_results, config)
 
-    def __init__(self, zypper_results):
+    def _create_config(self, config):
+        d = { 'mailreport': {}, 'retry': {}, 'logging': {} }
+        if config is not None:
+            for k in config.keys():
+                d[k].update(config[k])
+        cp = ConfigParser()
+        for k, v in d.items():
+            cp[k] = v
+        with open("auto-patch.cfg", 'wt') as f:
+            cp.write(f)
+
+    def __init__(self, zypper_results, config=None):
+        self._create_config(config)
         parser = argparse.ArgumentParser()
         parser.add_argument('--quiet', action='store_true')
         parser.add_argument('--non-interactive', action='store_true')
@@ -67,25 +82,21 @@ class AutoPatchCaller:
 
     class _mock_smtp:
         def __init__(self, host='', **kwargs):
-            pass
+            self.host = host
         def __enter__(self):
             return self
         def __exit__(self, *args):
             pass
         def send_message(self, msg, **kwargs):
             with open("report.pickle", "wb") as f:
+                pickle.dump(self.host, f)
                 pickle.dump(msg, f)
-
-    def _mock_sleep(self, secs):
-        pass
 
     def _patch_and_call(self):
         import subprocess
         import smtplib
-        import time
         subprocess.run = self._mock_subprocess_run
         smtplib.SMTP = self._mock_smtp
-        time.sleep = self._mock_sleep
         with self.auto_patch_path.open("rt") as script:
             exec(script.read(), dict(__name__="__main__"))
 
@@ -97,6 +108,7 @@ class AutoPatchCaller:
 
     def check_report(self):
         with open("report.pickle", "rb") as f:
+            host = pickle.load(f)
             msg = pickle.load(f)
         body = msg.get_content()
         idx = 0
@@ -104,4 +116,4 @@ class AutoPatchCaller:
             idx = body.find(res.stdout, idx)
             assert idx >= 0
             idx += len(res.stdout)
-        return msg
+        return host, msg
