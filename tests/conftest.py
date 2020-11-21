@@ -82,13 +82,14 @@ class AutoPatchCaller:
 
     class _mock_smtp:
         def __init__(self, host='', **kwargs):
-            pass
+            self.host = host
         def __enter__(self):
             return self
         def __exit__(self, *args):
             pass
         def send_message(self, msg, **kwargs):
             with open("report.pickle", "wb") as f:
+                pickle.dump(self.host, f)
                 pickle.dump(msg, f)
 
     def _patch_and_call(self):
@@ -107,6 +108,7 @@ class AutoPatchCaller:
 
     def check_report(self):
         with open("report.pickle", "rb") as f:
+            host = pickle.load(f)
             msg = pickle.load(f)
         body = msg.get_content()
         idx = 0
@@ -114,4 +116,4 @@ class AutoPatchCaller:
             idx = body.find(res.stdout, idx)
             assert idx >= 0
             idx += len(res.stdout)
-        return msg
+        return host, msg
