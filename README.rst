@@ -1,8 +1,8 @@
-|travis| |pypi|
+|gh-test| |pypi|
 
-.. |travis| image:: https://img.shields.io/travis/com/RKrahl/auto-patch
-   :target: https://travis-ci.com/RKrahl/auto-patch
-   :alt: Travis build status
+.. |gh-test| image:: https://img.shields.io/github/workflow/status/RKrahl/auto-patch/Run%20Test
+   :target: https://github.com/RKrahl/auto-patch/actions/workflows/run-tests.yaml
+   :alt: GitHub Workflow Status
 
 .. |pypi| image:: https://img.shields.io/pypi/v/auto-patch
    :target: https://pypi.org/project/auto-patch/
