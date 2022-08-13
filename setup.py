@@ -13,8 +13,9 @@ from pathlib import Path
 import string
 try:
     import distutils_pytest
-except ImportError:
-    pass
+    cmdclass = distutils_pytest.cmdclass
+except (ImportError, AttributeError):
+    cmdclass = dict()
 try:
     import setuptools_scm
     version = setuptools_scm.get_version()
@@ -71,6 +72,6 @@ setup(
         "Programming Language :: Python :: 3.9",
         "Topic :: System :: Systems Administration",
     ],
-    cmdclass = {'sdist': sdist},
+    cmdclass = dict(cmdclass, sdist=sdist),
 )
 
