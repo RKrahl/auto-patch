@@ -12,11 +12,15 @@ sdist:
 
 clean:
 	rm -rf build
-	rm -rf tests/.pytest_cache
+	rm -rf __pycache__
 
 distclean: clean
-	rm -f MANIFEST .version
+	rm -f MANIFEST _meta.py
 	rm -rf dist
+	rm -rf tests/.pytest_cache
 
 
-.PHONY: build test sdist clean distclean
+meta:
+	$(PYTHON) setup.py meta
+
+.PHONY: build test sdist clean distclean meta

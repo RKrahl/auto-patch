@@ -32,6 +32,8 @@ External programs:
 
 Required library packages:
 
++ `setuptools`_
+
 + `python-systemd`_
 
 Optional library packages:
@@ -69,6 +71,7 @@ permissions and limitations under the License.
 
 
 .. _zypper: https://github.com/openSUSE/zypper
+.. _setuptools: https://github.com/pypa/setuptools/
 .. _python-systemd: https://github.com/systemd/python-systemd
 .. _setuptools_scm: https://github.com/pypa/setuptools_scm
 .. _pytest: https://pytest.org/

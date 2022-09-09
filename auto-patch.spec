@@ -7,6 +7,7 @@ License:	Apache-2.0
 Group:		System/Management
 Source:		%{name}-%{version}.tar.gz
 BuildRequires:	python3-base >= 3.5
+BuildRequires:	python3-setuptools
 BuildRequires:	systemd-rpm-macros
 Requires:	lsof
 Requires:	python3-systemd
