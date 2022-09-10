@@ -97,6 +97,5 @@ setup(
     python_requires = ">=3.5",
     install_requires = ["systemd"],
     scripts = ["scripts/auto-patch.py"],
-    data_files = [("/etc", ["etc/auto-patch.cfg"])],
     cmdclass = dict(cmdclass, sdist=sdist, meta=meta),
 )

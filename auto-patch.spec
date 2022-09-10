@@ -32,6 +32,8 @@ python3 setup.py build
 %install
 python3 setup.py install --prefix=%{_prefix} --root=%{buildroot} --install-scripts=%{_sbindir}
 mv %{buildroot}%{_sbindir}/auto-patch.py %{buildroot}%{_sbindir}/auto-patch
+install -d -m 755 %{buildroot}%{_sysconfdir}
+cp -p etc/auto-patch.cfg %{buildroot}%{_sysconfdir}
 install -d -m 755 %{buildroot}%{_unitdir}
 cp -p systemd/* %{buildroot}%{_unitdir}
 
