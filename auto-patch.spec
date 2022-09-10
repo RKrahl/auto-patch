@@ -1,3 +1,5 @@
+%bcond_without tests
+
 Name:		auto-patch
 Version:	$version
 Release:	0
@@ -9,6 +11,11 @@ Source:		%{name}-%{version}.tar.gz
 BuildRequires:	python3-base >= 3.5
 BuildRequires:	python3-setuptools
 BuildRequires:	systemd-rpm-macros
+%if %{with tests}
+BuildRequires:	python3-distutils-pytest
+BuildRequires:	python3-pytest >= 3.0
+BuildRequires:	python3-systemd
+%endif
 Requires:	lsof
 Requires:	python3-systemd
 Requires:	systemd
@@ -36,6 +43,12 @@ install -d -m 755 %{buildroot}%{_sysconfdir}
 cp -p etc/auto-patch.cfg %{buildroot}%{_sysconfdir}
 install -d -m 755 %{buildroot}%{_unitdir}
 cp -p systemd/* %{buildroot}%{_unitdir}
+
+
+%if %{with tests}
+%check
+python3 setup.py test
+%endif
 
 
 %pre
