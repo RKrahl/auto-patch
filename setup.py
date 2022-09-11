@@ -96,6 +96,8 @@ setup(
     ],
     python_requires = ">=3.5",
     install_requires = ["systemd"],
+    packages = [],
+    py_modules = [],
     scripts = ["scripts/auto-patch.py"],
     cmdclass = dict(cmdclass, sdist=sdist, meta=meta),
 )
