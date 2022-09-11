@@ -1,5 +1,6 @@
+__pycache__/
 /.env
-/.version
 /MANIFEST
+/_meta.py
 /build/
 /dist/

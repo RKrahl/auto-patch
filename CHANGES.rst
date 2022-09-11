@@ -16,12 +16,18 @@ Misc
 
 + `#7`_, `#10`_: add a test suite.
 
+Bug fixes and minor changes
+---------------------------
+
++ `#12`__: review build tool chain.
+
 .. _#3: https://github.com/RKrahl/auto-patch/issues/3
 .. _#5: https://github.com/RKrahl/auto-patch/pull/5
 .. _#6: https://github.com/RKrahl/auto-patch/issues/6
 .. _#7: https://github.com/RKrahl/auto-patch/issues/7
 .. _#10: https://github.com/RKrahl/auto-patch/pull/10
 .. _#11: https://github.com/RKrahl/auto-patch/pull/11
+.. _#12: https://github.com/RKrahl/auto-patch/pull/12
 
 
 1.0.3 (2020-10-24)
@@ -30,7 +36,7 @@ Misc
 Bug fixes and minor changes
 ---------------------------
 
-+ Fix a syntx error.
++ Fix a syntax error.
 
 
 1.0.2 (2020-10-20)

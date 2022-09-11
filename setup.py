@@ -5,9 +5,11 @@ other system updates.  It also provides systemd unit files to
 automatically call that script regularly.
 """
 
+import setuptools
+from setuptools import setup
+import setuptools.command.build_py
 import distutils.command.sdist
-from distutils.core import setup
-import distutils.log
+from distutils import log
 from glob import glob
 from pathlib import Path
 import string
@@ -19,27 +21,47 @@ except (ImportError, AttributeError):
 try:
     import setuptools_scm
     version = setuptools_scm.get_version()
-    with open(".version", "wt") as f:
-        f.write(version)
 except (ImportError, LookupError):
     try:
-        with open(".version", "rt") as f:
-            version = f.read()
-    except OSError:
-        distutils.log.warn("warning: cannot determine version number")
+        import _meta
+        version = _meta.__version__
+    except ImportError:
+        log.warn("warning: cannot determine version number")
         version = "UNKNOWN"
 
-doclines = __doc__.strip().split("\n")
+docstring = __doc__
 
 
+class meta(setuptools.Command):
+    description = "generate meta files"
+    user_options = []
+    meta_template = '''
+__version__ = "%(version)s"
+'''
+    def initialize_options(self):
+        pass
+    def finalize_options(self):
+        pass
+    def run(self):
+        values = {
+            'version': self.distribution.get_version(),
+            'doc': docstring
+        }
+        with Path("_meta.py").open("wt") as f:
+            print(self.meta_template % values, file=f)
+
+# Note: Do not use setuptools for making the source distribution,
+# rather use the good old distutils instead.
+# Rationale: https://rhodesmill.org/brandon/2009/eby-magic/
 class sdist(distutils.command.sdist.sdist):
     def run(self):
+        self.run_command('meta')
         super().run()
         subst = {
             "version": self.distribution.get_version(),
             "url": self.distribution.get_url(),
-            "description": self.distribution.get_description(),
-            "long_description": self.distribution.get_long_description(),
+            "description": docstring.split("\n")[0],
+            "long_description": docstring.split("\n", maxsplit=2)[2].strip(),
         }
         for spec in glob("*.spec"):
             with Path(spec).open('rt') as inf:
@@ -47,18 +69,18 @@ class sdist(distutils.command.sdist.sdist):
                     outf.write(string.Template(inf.read()).substitute(subst))
 
 
+with Path("README.rst").open("rt", encoding="utf8") as f:
+    readme = f.read()
+
 setup(
     name = "auto-patch",
     version = version,
-    description = doclines[0],
-    long_description = "\n".join(doclines[2:]),
+    description = docstring.split("\n")[0],
+    long_description = readme,
+    url = "https://github.com/RKrahl/auto-patch",
     author = "Rolf Krahl",
     author_email = "rolf@rotkraut.de",
-    url = "https://github.com/RKrahl/auto-patch",
     license = "Apache-2.0",
-    requires = ["systemd"],
-    scripts = ["scripts/auto-patch.py"],
-    data_files = [("/etc", ["etc/auto-patch.cfg"])],
     classifiers = [
         "Development Status :: 4 - Beta",
         "Intended Audience :: System Administrators",
@@ -70,8 +92,14 @@ setup(
         "Programming Language :: Python :: 3.7",
         "Programming Language :: Python :: 3.8",
         "Programming Language :: Python :: 3.9",
+        "Programming Language :: Python :: 3.10",
+        "Programming Language :: Python :: 3.11",
         "Topic :: System :: Systems Administration",
     ],
-    cmdclass = dict(cmdclass, sdist=sdist),
+    python_requires = ">=3.5",
+    install_requires = ["systemd"],
+    packages = [],
+    py_modules = [],
+    scripts = ["scripts/auto-patch.py"],
+    cmdclass = dict(cmdclass, sdist=sdist, meta=meta),
 )
-
