@@ -19,7 +19,7 @@ Misc
 Bug fixes and minor changes
 ---------------------------
 
-+ `#12`__: review build tool chain.
++ `#12`_: review build tool chain.
 
 .. _#3: https://github.com/RKrahl/auto-patch/issues/3
 .. _#5: https://github.com/RKrahl/auto-patch/pull/5
