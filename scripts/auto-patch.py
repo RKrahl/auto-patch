@@ -11,6 +11,7 @@ import re
 import smtplib
 import socket
 import subprocess
+from subprocess import CalledProcessError
 import sys
 import tempfile
 from time import sleep
@@ -63,11 +64,32 @@ logging.getLogger().setLevel(logging.DEBUG)
 log = logging.getLogger(__name__)
 
 
-class ZypperExitException(subprocess.CalledProcessError):
+class ZypperExitException(CalledProcessError):
     """Represent a particular non-zero exit code from zypper.
     """
     ExitCode = 0
     Message = None
+    _SubClasses = dict()
+
+    @classmethod
+    def check_returncode(cls, proc):
+        """Raise the appropriate exception if the exit code is non-zero."""
+        if proc.returncode:
+            try:
+                ExcClass = cls._SubClasses[proc.returncode]
+            except KeyError:
+                raise CalledProcessError(proc.returncode, proc.args,
+                                         proc.stdout, proc.stderr) from None
+            raise ExcClass(proc.args, proc.stdout, proc.stderr)
+
+    @classmethod
+    def register_exit_code(cls, subcls):
+        """A class decorator to register the exit code for a subclass.
+        """
+        assert issubclass(subcls, cls)
+        assert subcls.ExitCode and subcls.ExitCode not in cls._SubClasses
+        cls._SubClasses[subcls.ExitCode] = subcls
+        return subcls
 
     def __init__(self, cmd, stdout=None, stderr=None):
         if not self.ExitCode:
@@ -84,6 +106,7 @@ class ZypperExitException(subprocess.CalledProcessError):
             raise NotImplementedError
         return self.Message
 
+@ZypperExitException.register_exit_code
 class ZypperLockedError(ZypperExitException):
     ExitCode = 7
     Message = "ZYPP library is locked"
@@ -102,7 +125,7 @@ class Zypper:
                               universal_newlines=True)
         log.debug("return code from zypper: %d", proc.returncode)
         if proc.returncode == 7:
-            raise ZypperLockedError(proc.args, proc.stdout, proc.stderr)
+            ZypperExitException.check_returncode(proc)
         elif (proc.returncode != 0 and
             not (retcodes and proc.returncode in retcodes)):
             proc.check_returncode()
