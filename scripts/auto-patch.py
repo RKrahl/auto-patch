@@ -63,9 +63,30 @@ logging.getLogger().setLevel(logging.DEBUG)
 log = logging.getLogger(__name__)
 
 
-class ZypperLockedError(Exception):
-    def __init__(self):
-        super().__init__("ZYPP library is locked")
+class ZypperExitException(subprocess.CalledProcessError):
+    """Represent a particular non-zero exit code from zypper.
+    """
+    ExitCode = 0
+    Message = None
+
+    def __init__(self, cmd, stdout=None, stderr=None):
+        if not self.ExitCode:
+            # This is an abstract class that may not be instantiated.
+            # Derived classes must override the class variable
+            # ExitCode.
+            raise NotImplementedError
+        super().__init__(self.ExitCode, cmd, stdout, stderr)
+
+    def __str__(self):
+        if not self.Message:
+            # This is an abstract class.  Derived classes must
+            # override the class variable Message.
+            raise NotImplementedError
+        return self.Message
+
+class ZypperLockedError(ZypperExitException):
+    ExitCode = 7
+    Message = "ZYPP library is locked"
 
 
 class Zypper:
@@ -81,7 +102,7 @@ class Zypper:
                               universal_newlines=True)
         log.debug("return code from zypper: %d", proc.returncode)
         if proc.returncode == 7:
-            raise ZypperLockedError()
+            raise ZypperLockedError(proc.args, proc.stdout, proc.stderr)
         elif (proc.returncode != 0 and
             not (retcodes and proc.returncode in retcodes)):
             proc.check_returncode()
@@ -154,14 +175,13 @@ def patch(stdout=None):
             if rc == 102:
                 log.warning("reboot is required after installing patches")
             return True
-        except ZypperLockedError:
+        except ZypperLockedError as err:
             if try_count < config['retry'].getint('max'):
-                log.info("ZYPP library is locked.  Will try again ...")
+                log.info("%s.  Will try again ...", err)
                 sleep(config['retry'].getint('wait'))
                 continue
             else:
-                log.error("ZYPP library is locked.  "
-                          "Giving up after %d tries." % try_count)
+                log.error("%s.  Giving up after %d tries.", err, try_count)
                 return have_patches
 
 def exchandler(type, value, traceback):
