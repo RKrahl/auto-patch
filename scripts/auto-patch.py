@@ -193,28 +193,19 @@ class Zypper:
     _zypper = "/usr/bin/zypper"
 
     @classmethod
-    def call(cls, args, stdout=None, retcodes=None):
+    def call(cls, args, stdout=None):
         cmd = [cls._zypper] + args
         log.debug("run: %s", " ".join(cmd))
         stdout.flush()
         proc = subprocess.run(cmd, stdout=stdout, stderr=subprocess.PIPE,
                               universal_newlines=True)
         log.debug("return code from zypper: %d", proc.returncode)
-        if proc.returncode == 7:
-            ZypperExitException.check_returncode(proc)
-        elif (proc.returncode != 0 and
-            not (retcodes and proc.returncode in retcodes)):
-            proc.check_returncode()
-        return proc.returncode
+        ZypperExitException.check_returncode(proc)
 
     @classmethod
     def patch_check(cls, stdout=None):
-        # patch-check
-        # 0: no patches needed
-        # 100: patches available for installation
-        # 101: security patches available for installation
         args = ["--quiet", "--non-interactive", "patch-check"]
-        return cls.call(args, stdout=stdout, retcodes={100, 101})
+        return cls.call(args, stdout=stdout)
 
     @classmethod
     def list_patches(cls, stdout=None):
@@ -223,20 +214,13 @@ class Zypper:
 
     @classmethod
     def patch(cls, stdout=None):
-        # patch: install patches
-        # 0: ok
-        # 102: successful installation, patch requires reboot
-        # 103: successful installation, restart of package manager needed
         args = ["--quiet", "--non-interactive", "patch", "--skip-interactive"]
-        return cls.call(args, stdout=stdout, retcodes={102, 103})
+        return cls.call(args, stdout=stdout)
 
     @classmethod
     def ps(cls, stdout=None):
-        # ps: list processes using deleted files
-        # 0: ok
-        # 102: reboot required
         args = ["--quiet", "ps"]
-        return cls.call(args, stdout=stdout, retcodes={102})
+        return cls.call(args, stdout=stdout)
 
 
 def patch(stdout=None):
@@ -249,9 +233,12 @@ def patch(stdout=None):
         try:
             while True:
                 p = stdout.tell()
-                if Zypper.patch_check(stdout=stdout) == 0:
+                try:
+                    Zypper.patch_check(stdout=stdout)
                     log.debug("no patches needed")
                     break
+                except (ZypperPatchesAvailable, ZypperSecurityPatchesAvailable):
+                    pass
                 stdout.seek(p)
                 m = check_line_pattern.search(stdout.read())
                 if m:
@@ -260,18 +247,22 @@ def patch(stdout=None):
                     log.info("patches are needed")
                 have_patches = True
                 Zypper.list_patches(stdout=stdout)
-                rc = Zypper.patch(stdout=stdout)
-                log.info("patches successfully installed")
-                if rc == 0 or rc == 102:
+                try:
+                    Zypper.patch(stdout=stdout)
+                    log.info("patches successfully installed")
                     break
-                elif rc == 103:
+                except ZypperRebootNeeded:
+                    log.info("patches successfully installed")
+                    break
+                except ZypperRestartNeeded:
                     log.info("patch requires restart to "
                              "check again for more patches")
                     continue
             if not have_patches:
                 return False
-            rc = Zypper.ps(stdout=stdout)
-            if rc == 102:
+            try:
+                Zypper.ps(stdout=stdout)
+            except ZypperRebootNeeded:
                 log.warning("reboot is required after installing patches")
             return True
         except ZypperLockedError as err:
