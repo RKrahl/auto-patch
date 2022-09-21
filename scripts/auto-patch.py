@@ -107,9 +107,85 @@ class ZypperExitException(CalledProcessError):
         return self.Message
 
 @ZypperExitException.register_exit_code
+class ZypperBugError(ZypperExitException):
+    ExitCode = 1
+    Message = "Unexpected situation, probably a bug in zypper"
+
+@ZypperExitException.register_exit_code
+class ZypperSyntaxError(ZypperExitException):
+    ExitCode = 2
+    Message = "Syntax error in the zypper call"
+
+@ZypperExitException.register_exit_code
+class ZypperInvalidArgsError(ZypperExitException):
+    ExitCode = 3
+    Message = "Invalid arguments in the zypper call"
+
+@ZypperExitException.register_exit_code
+class ZypperLibraryError(ZypperExitException):
+    ExitCode = 4
+    Message = "Problem reported by ZYPP library"
+
+@ZypperExitException.register_exit_code
+class ZypperPrivilegesError(ZypperExitException):
+    ExitCode = 5
+    Message = "Insufficient privileges calling zypper"
+
+@ZypperExitException.register_exit_code
+class ZypperNoReposError(ZypperExitException):
+    ExitCode = 6
+    Message = "No repositories defined in zypper"
+
+@ZypperExitException.register_exit_code
 class ZypperLockedError(ZypperExitException):
     ExitCode = 7
     Message = "ZYPP library is locked"
+
+@ZypperExitException.register_exit_code
+class ZypperCommitError(ZypperExitException):
+    ExitCode = 8
+    Message = "Error during installation or removal of packages"
+
+@ZypperExitException.register_exit_code
+class ZypperPatchesAvailable(ZypperExitException):
+    ExitCode = 100
+    Message = "Patches available for installation"
+
+@ZypperExitException.register_exit_code
+class ZypperSecurityPatchesAvailable(ZypperExitException):
+    ExitCode = 101
+    Message = "Security patches available for installation"
+
+@ZypperExitException.register_exit_code
+class ZypperRebootNeeded(ZypperExitException):
+    ExitCode = 102
+    Message = "Installation of a patch requires reboot"
+
+@ZypperExitException.register_exit_code
+class ZypperRestartNeeded(ZypperExitException):
+    ExitCode = 103
+    Message = "Installation of a patch requires restart of package manager"
+
+@ZypperExitException.register_exit_code
+class ZypperCapabilityNotFound(ZypperExitException):
+    ExitCode = 104
+    Message = ("Arguments does not match available or installed "
+               "package names or capabilities")
+
+@ZypperExitException.register_exit_code
+class ZypperSignal(ZypperExitException):
+    ExitCode = 105
+    Message = "Exit of zypper after receiving a SIGINT or SIGTERM"
+
+@ZypperExitException.register_exit_code
+class ZypperReposSkipped(ZypperExitException):
+    ExitCode = 106
+    Message = "Some repo temporarily disabled because of failure to refresh"
+
+@ZypperExitException.register_exit_code
+class ZypperRPMScriptfailed(ZypperExitException):
+    ExitCode = 107
+    Message = "Some packages install script returned an error"
 
 
 class Zypper:
