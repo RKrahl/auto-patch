@@ -5,7 +5,7 @@ import pytest
 from conftest import AutoPatchCaller
 
 
-no_wait = { 'retry': { 'wait': "0" } }
+no_wait = { 'retry': { 'max': "10", 'wait': "0" } }
 
 def test_locked_at_start(tmpdir):
     """ZYPP library is locked when auto-patch is started.
