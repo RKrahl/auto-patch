@@ -265,7 +265,7 @@ def patch(stdout=None):
             except ZypperRebootNeeded:
                 log.warning("reboot is required after installing patches")
             return True
-        except ZypperLockedError as err:
+        except (ZypperLockedError, ZypperReposSkipped) as err:
             if try_count < config['retry'].getint('max'):
                 log.info("%s.  Will try again ...", err)
                 sleep(config['retry'].getint('wait'))
