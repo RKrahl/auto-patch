@@ -1,4 +1,7 @@
-"""Consider scenarios when the ZYPP library is locked.
+"""Testing automatic retry.
+
+The auto-patch script should retry if the ZYPP library is locked by
+another process or in case of failure to refresh a repository.
 """
 
 import pytest
@@ -43,6 +46,29 @@ def test_locked_complete(tmpdir):
     """
     with tmpdir.as_cwd():
         caller = AutoPatchCaller.get_caller("locked_complete", config=no_wait)
+        caller.run()
+        # assert that no mail report has been sent:
+        with pytest.raises(FileNotFoundError):
+            caller.check_report()
+
+
+def test_no_network_at_start(tmpdir):
+    """Network failure when auto-patch is started.
+    """
+    with tmpdir.as_cwd():
+        caller = AutoPatchCaller.get_caller("no_net_start", config=no_wait)
+        caller.run()
+        caller.check_report()
+
+
+def test_locked_complete(tmpdir):
+    """A persistent network failure blocks auto-patch completely,
+    auto-patch eventually gives up waiting, not a single zypper
+    succeeded.  Note that no report is sent, because auto-patch
+    couldn't even check the presence of available patches.
+    """
+    with tmpdir.as_cwd():
+        caller = AutoPatchCaller.get_caller("no_net_complete", config=no_wait)
         caller.run()
         # assert that no mail report has been sent:
         with pytest.raises(FileNotFoundError):
