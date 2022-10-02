@@ -100,11 +100,11 @@ class AutoPatchCaller:
         with self.auto_patch_path.open("rt") as script:
             exec(script.read(), dict(__name__="__main__"))
 
-    def run(self):
+    def run(self, exitcode=0):
         p = Process(target=self._patch_and_call)
         p.start()
         p.join()
-        assert p.exitcode == 0
+        assert p.exitcode == exitcode
 
     def check_report(self):
         with open("report.pickle", "rb") as f:

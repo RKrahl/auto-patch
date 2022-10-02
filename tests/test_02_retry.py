@@ -34,19 +34,19 @@ def test_locked_final(tmpdir):
     """
     with tmpdir.as_cwd():
         caller = AutoPatchCaller.get_caller("locked_final", config=no_wait)
-        caller.run()
-        caller.check_report()
+        caller.run(exitcode=7)
+        # assert that no mail report has been sent:
+        with pytest.raises(FileNotFoundError):
+            caller.check_report()
 
 
 def test_locked_complete(tmpdir):
     """A persistent lock blocks auto-patch completely, auto-patch
-    eventually gives up waiting, not a single zypper succeeded.  Note
-    that no report is sent, because auto-patch couldn't even check the
-    presence of available patches.
+    eventually gives up waiting, not a single zypper succeeded.
     """
     with tmpdir.as_cwd():
         caller = AutoPatchCaller.get_caller("locked_complete", config=no_wait)
-        caller.run()
+        caller.run(exitcode=7)
         # assert that no mail report has been sent:
         with pytest.raises(FileNotFoundError):
             caller.check_report()
@@ -64,12 +64,11 @@ def test_no_network_at_start(tmpdir):
 def test_no_network_complete(tmpdir):
     """A persistent network failure blocks auto-patch completely,
     auto-patch eventually gives up waiting, not a single zypper
-    succeeded.  Note that no report is sent, because auto-patch
-    couldn't even check the presence of available patches.
+    succeeded.
     """
     with tmpdir.as_cwd():
         caller = AutoPatchCaller.get_caller("no_net_complete", config=no_wait)
-        caller.run()
+        caller.run(exitcode=106)
         # assert that no mail report has been sent:
         with pytest.raises(FileNotFoundError):
             caller.check_report()

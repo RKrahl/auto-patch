@@ -289,8 +289,8 @@ def patch(stdout=None):
                 sleep(config['retry'].getint('wait'))
                 continue
             else:
-                log.error("%s.  Giving up after %d tries.", err, try_count)
-                return have_patches
+                err.Message += (".  Giving up after %d tries." % try_count)
+                raise err
 
 def main():
     setup_logging(config['logging'])
