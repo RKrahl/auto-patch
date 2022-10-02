@@ -292,13 +292,8 @@ def patch(stdout=None):
                 log.error("%s.  Giving up after %d tries.", err, try_count)
                 return have_patches
 
-def exchandler(type, value, traceback):
-    log.critical("%s: %s", type.__name__, value,
-                 exc_info=(type, value, traceback))
-
-if __name__ == "__main__":
+def main():
     setup_logging(config['logging'])
-    sys.excepthook = exchandler
     with tempfile.TemporaryFile(mode='w+t') as tmpf:
         with logging_add_report(config['logging'], tmpf):
             have_patches = patch(stdout=tmpf)
@@ -315,3 +310,11 @@ if __name__ == "__main__":
                 mailhost = config['mailreport'].get('mailhost')
                 with smtplib.SMTP(mailhost) as smtp:
                     smtp.send_message(msg)
+
+if __name__ == "__main__":
+    try:
+        main()
+    except Exception as err:
+        log.critical("Internal error %s: %s", type(err).__name__, err,
+                     exc_info=err)
+        sys.exit(-1)
