@@ -3,6 +3,7 @@
 """
 
 from configparser import ConfigParser
+from contextlib import contextmanager
 from email.message import EmailMessage
 import getpass
 import logging
@@ -51,16 +52,33 @@ for k, v in config_defaults.items():
     config[k] = v
 config.read(config_files)
 
-journal_level = config['logging'].get('journal_level')
-journal_hdlr = systemd.journal.JournalHandler(level=journal_level)
-logging.getLogger().addHandler(journal_hdlr)
-if os.isatty(sys.stderr.fileno()):
-    stderr_hdlr = logging.StreamHandler()
-    stderr_hdlr.setLevel(config['logging'].get('stderr_level'))
-    fmt = "%(levelname)s: %(message)s"
-    stderr_hdlr.setFormatter(logging.Formatter(fmt=fmt))
-    logging.getLogger().addHandler(stderr_hdlr)
-logging.getLogger().setLevel(logging.DEBUG)
+def setup_logging(cfg):
+    root = logging.getLogger()
+    journal_level = cfg.get('journal_level')
+    journal_hdlr = systemd.journal.JournalHandler(level=journal_level)
+    root.addHandler(journal_hdlr)
+    if os.isatty(sys.stderr.fileno()):
+        stderr_hdlr = logging.StreamHandler()
+        stderr_hdlr.setLevel(cfg.get('stderr_level'))
+        fmt = "%(levelname)s: %(message)s"
+        stderr_hdlr.setFormatter(logging.Formatter(fmt=fmt))
+        root.addHandler(stderr_hdlr)
+    root.setLevel(logging.DEBUG)
+
+@contextmanager
+def logging_add_report(cfg, stream):
+    root = logging.getLogger()
+    report_hdlr = logging.StreamHandler(stream=stream)
+    report_hdlr.setLevel(cfg.get('report_level'))
+    report_hdlr.setFormatter(logging.Formatter(fmt="\n%(message)s"))
+    root.addHandler(report_hdlr)
+    try:
+        yield None
+    finally:
+        report_hdlr.flush()
+        root.removeHandler(report_hdlr)
+        report_hdlr.close()
+
 log = logging.getLogger(__name__)
 
 
@@ -279,16 +297,12 @@ def exchandler(type, value, traceback):
                  exc_info=(type, value, traceback))
 
 if __name__ == "__main__":
+    setup_logging(config['logging'])
     sys.excepthook = exchandler
     with tempfile.TemporaryFile(mode='w+t') as tmpf:
-        report_hdlr = logging.StreamHandler(stream=tmpf)
-        report_hdlr.setLevel(config['logging'].get('report_level'))
-        report_hdlr.setFormatter(logging.Formatter(fmt="\n%(message)s"))
-        logging.getLogger().addHandler(report_hdlr)
-        if patch(stdout=tmpf):
-            report_hdlr.flush()
-            logging.getLogger().removeHandler(report_hdlr)
-            report_hdlr.close()
+        with logging_add_report(config['logging'], tmpf):
+            have_patches = patch(stdout=tmpf)
+        if have_patches:
             tmpf.seek(0)
             report = tmpf.read()
             log.debug(report)
