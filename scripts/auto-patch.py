@@ -314,6 +314,11 @@ def main():
 if __name__ == "__main__":
     try:
         main()
+    except (ZypperPrivilegesError, ZypperNoReposError, ZypperLockedError,
+            ZypperCommitError, ZypperSignal, ZypperReposSkipped,
+            ZypperRPMScriptfailed) as err:
+        log.error(err)
+        sys.exit(err.ExitCode)
     except ZypperExitException as err:
         log.critical("Internal error %s: %s", type(err).__name__, err,
                      exc_info=err)
