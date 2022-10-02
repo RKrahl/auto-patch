@@ -285,7 +285,7 @@ def patch(stdout=None):
             return True
         except (ZypperLockedError, ZypperReposSkipped) as err:
             if try_count < config['retry'].getint('max'):
-                log.info("%s.  Will try again ...", err)
+                log.warning("%s.  Will try again ...", err)
                 sleep(config['retry'].getint('wait'))
                 continue
             else:
