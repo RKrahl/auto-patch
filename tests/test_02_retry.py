@@ -61,7 +61,7 @@ def test_no_network_at_start(tmpdir):
         caller.check_report()
 
 
-def test_locked_complete(tmpdir):
+def test_no_network_complete(tmpdir):
     """A persistent network failure blocks auto-patch completely,
     auto-patch eventually gives up waiting, not a single zypper
     succeeded.  Note that no report is sent, because auto-patch
