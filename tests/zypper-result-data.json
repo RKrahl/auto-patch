@@ -403,5 +403,37 @@
       "stderr": "Repository 'Update repository of openSUSE Backports' is invalid.\n[repo-backports-update|http://download.opensuse.org/update/leap/15.3/backports/] Valid metadata not found at specified URL\nHistory:\n - [|] Error trying to read from 'http://download.opensuse.org/update/leap/15.3/backports/'\n - Download (curl) error for 'http://download.opensuse.org/update/leap/15.3/backports/content':\n   Error code: Connection failed\n   Error message: Could not resolve host: download.opensuse.org\n\nRepository 'Main Repository' is invalid.\n[repo-oss|http://download.opensuse.org/distribution/leap/15.3/repo/oss/] Valid metadata not found at specified URL\nHistory:\n - [|] Error trying to read from 'http://download.opensuse.org/distribution/leap/15.3/repo/oss/'\n - Download (curl) error for 'http://download.opensuse.org/distribution/leap/15.3/repo/oss/content':\n   Error code: Connection failed\n   Error message: Could not resolve host: download.opensuse.org\n\nRepository 'Update repository with updates from SUSE Linux Enterprise 15' is invalid.\n[repo-sle-update|http://download.opensuse.org/update/leap/15.3/sle/] Valid metadata not found at specified URL\nHistory:\n - [|] Error trying to read from 'http://download.opensuse.org/update/leap/15.3/sle/'\n - Download (curl) error for 'http://download.opensuse.org/update/leap/15.3/sle/content':\n   Error code: Connection failed\n   Error message: Could not resolve host: download.opensuse.org\n\nRepository 'Main Update Repository' is invalid.\n[repo-update|http://download.opensuse.org/update/leap/15.3/oss/] Valid metadata not found at specified URL\nHistory:\n - [|] Error trying to read from 'http://download.opensuse.org/update/leap/15.3/oss/'\n - Download (curl) error for 'http://download.opensuse.org/update/leap/15.3/oss/content':\n   Error code: Connection failed\n   Error message: Could not resolve host: download.opensuse.org\n\nSome of the repositories have not been refreshed because of an error.\n",
       "stdout": "Warning: Skipping repository 'Update repository of openSUSE Backports' because of the above error.\nWarning: Skipping repository 'Main Repository' because of the above error.\nWarning: Skipping repository 'Update repository with updates from SUSE Linux Enterprise 15' because of the above error.\nWarning: Skipping repository 'Main Update Repository' because of the above error.\n\n0 patches needed (0 security patches)\n"
     }
+  ],
+  "err_syntax": [
+    {
+      "cmd": "patch-check",
+      "returncode": 101,
+      "stdout": "\nCategory    | Patches\n------------+--------\nsecurity    | 1\nrecommended | 1\n\n1 patches needed (1 security patch)\n"
+    },
+    {
+      "cmd": "list-patches",
+      "stdout": "\nRepository                                                   | Name                        | Category    | Severity | Interactive | Status | Since | Summary\n-------------------------------------------------------------+-----------------------------+-------------+----------+-------------+--------+-------+-----------------------------------------------\nUpdate repository with updates from SUSE Linux Enterprise 15 | openSUSE-SLE-15.3-2022-3307 | security    | moderate | ---         | needed | -     | Security update for sqlite3\nUpdate repository with updates from SUSE Linux Enterprise 15 | openSUSE-SLE-15.3-2022-3395 | recommended | moderate | ---         | needed | -     | Recommended update for ca-certificates-mozilla\n\n2 patches needed (1 security patch)\n\n"
+    },
+    {
+      "cmd": "patch",
+      "returncode": 2,
+      "stderr": "Unknown command 'bla-patch'\n"
+    }
+  ],
+  "err_permissions": [
+    {
+      "cmd": "patch-check",
+      "returncode": 101,
+      "stdout": "\nCategory    | Patches\n------------+--------\nsecurity    | 1\nrecommended | 1\n\n1 patches needed (1 security patch)\n"
+    },
+    {
+      "cmd": "list-patches",
+      "stdout": "\nRepository                                                   | Name                        | Category    | Severity | Interactive | Status | Since | Summary\n-------------------------------------------------------------+-----------------------------+-------------+----------+-------------+--------+-------+-----------------------------------------------\nUpdate repository with updates from SUSE Linux Enterprise 15 | openSUSE-SLE-15.3-2022-3307 | security    | moderate | ---         | needed | -     | Security update for sqlite3\nUpdate repository with updates from SUSE Linux Enterprise 15 | openSUSE-SLE-15.3-2022-3395 | recommended | moderate | ---         | needed | -     | Recommended update for ca-certificates-mozilla\n\n2 patches needed (1 security patch)\n\n"
+    },
+    {
+      "cmd": "patch",
+      "returncode": 5,
+      "stderr": "Root privileges are required to run this command.\n"
+    }
   ]
 }
