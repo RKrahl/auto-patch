@@ -10,6 +10,9 @@ New features
 
 + `#6`_, `#11`_: add a configuration file.
 + `#3`_, `#5`_: add logging.
++ `#9`_, `#13`_: review handling of the exit code from zypper and
+  provide intelligible error messages.  Retry the zypper call on
+  failure to refresh a repository.
 
 Misc
 ----
@@ -25,9 +28,11 @@ Bug fixes and minor changes
 .. _#5: https://github.com/RKrahl/auto-patch/pull/5
 .. _#6: https://github.com/RKrahl/auto-patch/issues/6
 .. _#7: https://github.com/RKrahl/auto-patch/issues/7
+.. _#9: https://github.com/RKrahl/auto-patch/issues/9
 .. _#10: https://github.com/RKrahl/auto-patch/pull/10
 .. _#11: https://github.com/RKrahl/auto-patch/pull/11
 .. _#12: https://github.com/RKrahl/auto-patch/pull/12
+.. _#13: https://github.com/RKrahl/auto-patch/pull/13
 
 
 1.0.3 (2020-10-24)
