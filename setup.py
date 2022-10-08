@@ -7,7 +7,6 @@ automatically call that script regularly.
 
 import setuptools
 from setuptools import setup
-import setuptools.command.build_py
 import distutils.command.sdist
 from distutils import log
 from glob import glob
