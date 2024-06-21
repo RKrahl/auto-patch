@@ -1,5 +1,4 @@
 distutils-pytest
 pytest >=3.0.0
 setuptools_scm
-systemd-python <235 ; python_version == '3.5'
-systemd-python ; python_version > '3.5'
+systemd-python

@@ -8,7 +8,7 @@ Summary:	$description
 License:	Apache-2.0
 Group:		System/Management
 Source:		%{name}-%{version}.tar.gz
-BuildRequires:	python3-base >= 3.5
+BuildRequires:	python3-base >= 3.6
 BuildRequires:	python3-setuptools
 BuildRequires:	systemd-rpm-macros
 %if %{with tests}
