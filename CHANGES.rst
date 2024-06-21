@@ -2,6 +2,18 @@ Changelog
 =========
 
 
+dev (not yet released)
+~~~~~~~~~~~~~~~~~~~~~~
+
+Misc
+----
+
++ `#14`_: drop support for Python 3.5.
+
+.. _#14: https://github.com/RKrahl/auto-patch/pull/14
+
+
+
 1.1.0 (2022-10-03)
 ~~~~~~~~~~~~~~~~~~
 
