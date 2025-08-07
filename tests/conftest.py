@@ -85,15 +85,15 @@ class AutoPatchCaller:
     relations to the outside world for the script.
     """
 
-    _zypper_result_data = None
-
     @classmethod
     def _get_zypper_result_data(cls):
-        if not cls._zypper_result_data:
+        try:
+            return cls._zypper_result_data
+        except AttributeError:
             datafile = test_dir / "zypper-result-data.json"
             with datafile.open("rt") as f:
                 cls._zypper_result_data = json.load(f)
-        return cls._zypper_result_data
+            return cls._zypper_result_data
 
     @classmethod
     def get_caller(cls, case, config=None):
