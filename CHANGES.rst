@@ -10,8 +10,14 @@ Misc
 
 + `#14`_: drop support for Python 3.5.
 
-.. _#14: https://github.com/RKrahl/auto-patch/pull/14
+Bug fixes and minor changes
+---------------------------
 
++ `#16`_, `#17`_: Review of the test framework.
+
+.. _#14: https://github.com/RKrahl/auto-patch/pull/14
+.. _#16: https://github.com/RKrahl/auto-patch/issues/16
+.. _#17: https://github.com/RKrahl/auto-patch/pull/17
 
 
 1.1.0 (2022-10-03)
