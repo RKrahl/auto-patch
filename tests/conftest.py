@@ -122,7 +122,7 @@ class AutoPatchCaller:
         p.join()
         assert p.exitcode == exitcode
 
-    def check_report(self):
+    def check_report(self, extra_msg=None):
         with open("report.pickle", "rb") as f:
             host = pickle.load(f)
             msg = pickle.load(f)
@@ -132,4 +132,7 @@ class AutoPatchCaller:
             idx = body.find(res.stdout, idx)
             assert idx >= 0
             idx += len(res.stdout)
+        if extra_msg:
+            idx = body.find(extra_msg, idx)
+            assert idx >= 0
         return host, msg

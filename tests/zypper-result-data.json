@@ -435,5 +435,21 @@
       "returncode": 5,
       "stderr": "Root privileges are required to run this command.\n"
     }
+  ],
+  "err_scripterr": [
+    {
+      "cmd": "patch-check",
+      "returncode": 100,
+      "stdout": "\nCategory    | Patches\n------------+--------\nrecommended | 1\n\n1 patch needed (0 security patches)\n"
+    },
+    {
+      "cmd": "list-patches",
+      "stdout": "\nRepository                                                   | Name                        | Category    | Severity | Interactive | Status | Since      | Summary\n-------------------------------------------------------------+-----------------------------+-------------+----------+-------------+--------+------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------\nUpdate repository with updates from SUSE Linux Enterprise 15 | openSUSE-SLE-15.6-2025-2574 | recommended | moderate | ---         | needed | 2025-08-08 | Recommended update for python3-PyNaCl, python3-atomicwrites, python3-cryptography, python3-cryptography-vectors, python3-more-itertools, python3-paramiko, python3-pip, python3-pyOpenSSL, python3-pytest, python3-setuptools\n\n1 patch needed (0 security patches)\n\n"
+    },
+    {
+      "cmd": "patch",
+      "returncode": 107,
+      "stdout": "\nThe following 2 packages are going to be upgraded:\n  python3-pip python3-pytest\n\nThe following NEW patch is going to be installed:\n  openSUSE-SLE-15.6-2025-2574\n\n2 packages to upgrade.\n\nPackage download size:     2.2 MiB\n\nPackage install size change:\n              |      10.2 MiB  required by packages that will be installed\n    -1.8 MiB  |  -   12.0 MiB  released by packages that will be removed\n\nBackend:  classic_rpmtrans\nContinue? [y/n/v/...? shows all options] (y): y\n\n"
+    }
   ]
 }

@@ -70,7 +70,8 @@ def logging_add_report(cfg, stream):
     root = logging.getLogger()
     report_hdlr = logging.StreamHandler(stream=stream)
     report_hdlr.setLevel(cfg.get('report_level'))
-    report_hdlr.setFormatter(logging.Formatter(fmt="\n%(message)s"))
+    fmt = "\n%(levelname)s: %(message)s"
+    report_hdlr.setFormatter(logging.Formatter(fmt=fmt))
     root.addHandler(report_hdlr)
     try:
         yield None
@@ -292,31 +293,40 @@ def patch(stdout=None):
                 err.Message += (".  Giving up after %d tries." % try_count)
                 raise err
 
+def make_report(logfile):
+    logfile.seek(0)
+    report = logfile.read()
+    log.debug(report)
+    if config['mailreport'].getboolean('report'):
+        msg = EmailMessage()
+        msg.set_content(report)
+        msg['From'] = config['mailreport'].get('mailfrom')
+        msg['To'] = config['mailreport'].get('mailto')
+        msg['Subject'] = config['mailreport'].get('subject')
+        mailhost = config['mailreport'].get('mailhost')
+        with smtplib.SMTP(mailhost) as smtp:
+            smtp.send_message(msg)
+
 def main():
     setup_logging(config['logging'])
     with tempfile.TemporaryFile(mode='w+t') as tmpf:
+        exit_code = 0
         with logging_add_report(config['logging'], tmpf):
-            have_patches = patch(stdout=tmpf)
-        if have_patches:
-            tmpf.seek(0)
-            report = tmpf.read()
-            log.debug(report)
-            if config['mailreport'].getboolean('report'):
-                msg = EmailMessage()
-                msg.set_content(report)
-                msg['From'] = config['mailreport'].get('mailfrom')
-                msg['To'] = config['mailreport'].get('mailto')
-                msg['Subject'] = config['mailreport'].get('subject')
-                mailhost = config['mailreport'].get('mailhost')
-                with smtplib.SMTP(mailhost) as smtp:
-                    smtp.send_message(msg)
+            try:
+                have_patches = patch(stdout=tmpf)
+            except (ZypperCommitError, ZypperRPMScriptfailed,
+                    ZypperSignal) as err:
+                log.error(err)
+                exit_code = err.ExitCode
+        if exit_code or have_patches:
+            make_report(tmpf)
+        return exit_code
 
 if __name__ == "__main__":
     try:
-        main()
+        exit_code = main()
     except (ZypperPrivilegesError, ZypperNoReposError, ZypperLockedError,
-            ZypperCommitError, ZypperSignal, ZypperReposSkipped,
-            ZypperRPMScriptfailed) as err:
+            ZypperReposSkipped) as err:
         log.error(err)
         sys.exit(err.ExitCode)
     except ZypperExitException as err:
@@ -327,3 +337,4 @@ if __name__ == "__main__":
         log.critical("Internal error %s: %s", type(err).__name__, err,
                      exc_info=err)
         sys.exit(-1)
+    sys.exit(exit_code)
