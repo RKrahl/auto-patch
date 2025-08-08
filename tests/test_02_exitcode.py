@@ -36,7 +36,6 @@ def test_error_permission(tmpdir):
             caller.check_report()
 
 
-@pytest.mark.xfail(reason="Issue #15")
 def test_error_scripterr(tmpdir):
     """A %post() scriptlet from one of the packages failed.
 
