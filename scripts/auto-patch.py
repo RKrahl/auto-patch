@@ -70,7 +70,8 @@ def logging_add_report(cfg, stream):
     root = logging.getLogger()
     report_hdlr = logging.StreamHandler(stream=stream)
     report_hdlr.setLevel(cfg.get('report_level'))
-    report_hdlr.setFormatter(logging.Formatter(fmt="\n%(message)s"))
+    fmt = "\n%(levelname)s: %(message)s"
+    report_hdlr.setFormatter(logging.Formatter(fmt=fmt))
     root.addHandler(report_hdlr)
     try:
         yield None
