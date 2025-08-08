@@ -42,8 +42,7 @@ def test_error_scripterr(tmpdir):
     This may happen, though rarely.  The auto-patch should report the
     error, but still deliver a report.
     """
-    # FIXME: verify that the error is logged
     with tmpdir.as_cwd():
         caller = AutoPatchCaller.get_caller("err_scripterr")
         caller.run(exitcode=107)
-        caller.check_report()
+        caller.check_report(extra_msg="ERROR:")

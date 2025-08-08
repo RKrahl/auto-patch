@@ -450,9 +450,6 @@
       "cmd": "patch",
       "returncode": 107,
       "stdout": "\nThe following 2 packages are going to be upgraded:\n  python3-pip python3-pytest\n\nThe following NEW patch is going to be installed:\n  openSUSE-SLE-15.6-2025-2574\n\n2 packages to upgrade.\n\nPackage download size:     2.2 MiB\n\nPackage install size change:\n              |      10.2 MiB  required by packages that will be installed\n    -1.8 MiB  |  -   12.0 MiB  released by packages that will be removed\n\nBackend:  classic_rpmtrans\nContinue? [y/n/v/...? shows all options] (y): y\n\n"
-    },
-    {
-      "cmd": "ps"
     }
   ]
 }
