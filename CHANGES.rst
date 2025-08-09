@@ -16,12 +16,14 @@ Bug fixes and minor changes
 + `#15`_, `#18`_: Send a report also in the case of certain errors
   from zypper.
 + `#16`_, `#17`_: Review of the test framework.
++ `#19`_: Review build tool chain.
 
 .. _#14: https://github.com/RKrahl/auto-patch/pull/14
 .. _#15: https://github.com/RKrahl/auto-patch/issues/15
 .. _#16: https://github.com/RKrahl/auto-patch/issues/16
 .. _#17: https://github.com/RKrahl/auto-patch/pull/17
 .. _#18: https://github.com/RKrahl/auto-patch/pull/18
+.. _#19: https://github.com/RKrahl/auto-patch/pull/19
 
 
 1.1.0 (2022-10-03)
