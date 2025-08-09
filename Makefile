@@ -19,8 +19,8 @@ distclean: clean
 	rm -rf dist
 	rm -rf tests/.pytest_cache
 
-
 meta:
 	$(PYTHON) setup.py meta
+
 
 .PHONY: build test sdist clean distclean meta

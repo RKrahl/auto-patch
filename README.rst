@@ -63,10 +63,10 @@ Optional library packages:
 Copyright and License
 ---------------------
 
-Copyright 2020–2022 Rolf Krahl
+Copyright 2020–2025 Rolf Krahl
 
 Licensed under the `Apache License`_, Version 2.0 (the "License"); you
-may not use this file except in compliance with the License.
+may not use this package except in compliance with the License.
 
 Unless required by applicable law or agreed to in writing, software
 distributed under the License is distributed on an "AS IS" BASIS,

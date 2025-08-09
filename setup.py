@@ -10,7 +10,6 @@ from setuptools import setup
 import distutils.command.sdist
 import distutils.dist
 from distutils import log
-from glob import glob
 from pathlib import Path
 import string
 try:
@@ -43,16 +42,20 @@ distutils.dist.DistributionMetadata.get_fullname = _fixed_get_fullname
 
 
 class meta(setuptools.Command):
+
     description = "generate meta files"
     user_options = []
     meta_template = '''
 release = %(release)r
 version = %(version)r
 '''
+
     def initialize_options(self):
         pass
+
     def finalize_options(self):
         pass
+
     def run(self):
         version = self.distribution.get_version()
         log.info("version: %s", version)
@@ -62,6 +65,7 @@ version = %(version)r
         }
         with Path("_meta.py").open("wt") as f:
             print(self.meta_template % values, file=f)
+
 
 # Note: Do not use setuptools for making the source distribution,
 # rather use the good old distutils instead.
@@ -76,8 +80,8 @@ class sdist(distutils.command.sdist.sdist):
             "description": docstring.split("\n")[0],
             "long_description": docstring.split("\n", maxsplit=2)[2].strip(),
         }
-        for spec in glob("*.spec"):
-            with Path(spec).open('rt') as inf:
+        for spec in Path().glob("*.spec"):
+            with spec.open('rt') as inf:
                 with Path(self.dist_dir, spec).open('wt') as outf:
                     outf.write(string.Template(inf.read()).substitute(subst))
 
@@ -90,6 +94,7 @@ setup(
     version = version,
     description = docstring.split("\n")[0],
     long_description = readme,
+    long_description_content_type = "text/x-rst",
     url = "https://github.com/RKrahl/auto-patch",
     author = "Rolf Krahl",
     author_email = "rolf@rotkraut.de",
@@ -108,8 +113,13 @@ setup(
         "Programming Language :: Python :: 3.11",
         "Programming Language :: Python :: 3.12",
         "Programming Language :: Python :: 3.13",
+        "Programming Language :: Python :: 3.14",
         "Topic :: System :: Systems Administration",
     ],
+    project_urls = dict(
+        Source="https://github.com/RKrahl/auto-patch",
+        Download=("https://github.com/RKrahl/auto-patch/releases/%s/" % release),
+    ),
     python_requires = ">=3.6",
     install_requires = ["setuptools", "systemd-python"],
     packages = [],
