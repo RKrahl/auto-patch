@@ -8,6 +8,7 @@ automatically call that script regularly.
 import setuptools
 from setuptools import setup
 import distutils.command.sdist
+import distutils.dist
 from distutils import log
 from glob import glob
 from pathlib import Path
@@ -30,6 +31,15 @@ except (ImportError, LookupError):
         release = version = "UNKNOWN"
 
 docstring = __doc__
+
+
+# Enforcing of PEP 625 has been added in setuptools 69.3.0.  We don't
+# want this, we want to keep control on the name of the sdist
+# ourselves.  Disable it.
+def _fixed_get_fullname(self):
+    return "%s-%s" % (self.get_name(), self.get_version())
+
+distutils.dist.DistributionMetadata.get_fullname = _fixed_get_fullname
 
 
 class meta(setuptools.Command):
