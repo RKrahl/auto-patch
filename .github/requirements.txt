@@ -1,4 +1,4 @@
 distutils-pytest
+git-props
 pytest >=3.0.0
-setuptools_scm
 systemd-python
