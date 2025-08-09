@@ -36,6 +36,11 @@ Required library packages:
 
 + `python-systemd`_
 
+  Note: it is recommended to install this from the package repository
+  of your Linux distribution, e.g. on openSUSE and SLE, run something
+  like `zypper install python3-systemd`.  If you need to install it
+  from PyPI, please note that the package name there is `systemd-python`_.
+
 Optional library packages:
 
 + `git-props`_
@@ -73,6 +78,7 @@ permissions and limitations under the License.
 .. _zypper: https://github.com/openSUSE/zypper
 .. _setuptools: https://github.com/pypa/setuptools/
 .. _python-systemd: https://github.com/systemd/python-systemd
+.. _systemd-python: https://pypi.org/project/systemd-python/
 .. _git-props: https://github.com/RKrahl/git-props
 .. _pytest: https://pytest.org/
 .. _distutils-pytest: https://github.com/RKrahl/distutils-pytest

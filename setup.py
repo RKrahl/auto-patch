@@ -111,7 +111,7 @@ setup(
         "Topic :: System :: Systems Administration",
     ],
     python_requires = ">=3.6",
-    install_requires = ["systemd"],
+    install_requires = ["setuptools", "systemd-python"],
     packages = [],
     py_modules = [],
     scripts = ["scripts/auto-patch.py"],
