@@ -2,8 +2,10 @@ Changelog
 =========
 
 
-dev (not yet released)
-~~~~~~~~~~~~~~~~~~~~~~
+.. _changes-1_1_1:
+
+1.1.1 (2025-08-09)
+~~~~~~~~~~~~~~~~~~
 
 Misc
 ----
@@ -25,6 +27,8 @@ Bug fixes and minor changes
 .. _#18: https://github.com/RKrahl/auto-patch/pull/18
 .. _#19: https://github.com/RKrahl/auto-patch/pull/19
 
+
+.. _changes-1_1_0:
 
 1.1.0 (2022-10-03)
 ~~~~~~~~~~~~~~~~~~
@@ -59,6 +63,8 @@ Bug fixes and minor changes
 .. _#13: https://github.com/RKrahl/auto-patch/pull/13
 
 
+.. _changes-1_0_3:
+
 1.0.3 (2020-10-24)
 ~~~~~~~~~~~~~~~~~~
 
@@ -67,6 +73,8 @@ Bug fixes and minor changes
 
 + Fix a syntax error.
 
+
+.. _changes-1_0_2:
 
 1.0.2 (2020-10-20)
 ~~~~~~~~~~~~~~~~~~
@@ -83,6 +91,8 @@ Bug fixes and minor changes
 .. _#4: https://github.com/RKrahl/auto-patch/pull/4
 
 
+.. _changes-1_0_1:
+
 1.0.1 (2020-08-19)
 ~~~~~~~~~~~~~~~~~~
 
@@ -97,6 +107,8 @@ Bug fixes and minor changes
 
 .. _#1: https://github.com/RKrahl/auto-patch/pull/1
 
+
+.. _changes-1_0:
 
 1.0 (2020-07-26)
 ~~~~~~~~~~~~~~~~
