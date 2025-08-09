@@ -18,15 +18,16 @@ try:
 except (ImportError, AttributeError):
     cmdclass = dict()
 try:
-    import setuptools_scm
-    version = setuptools_scm.get_version()
+    import gitprops
+    release = gitprops.get_last_release()
+    release = release and str(release)
+    version = str(gitprops.get_version())
 except (ImportError, LookupError):
     try:
-        import _meta
-        version = _meta.__version__
+        from _meta import release, version
     except ImportError:
         log.warn("warning: cannot determine version number")
-        version = "UNKNOWN"
+        release = version = "UNKNOWN"
 
 docstring = __doc__
 
@@ -35,16 +36,19 @@ class meta(setuptools.Command):
     description = "generate meta files"
     user_options = []
     meta_template = '''
-__version__ = "%(version)s"
+release = %(release)r
+version = %(version)r
 '''
     def initialize_options(self):
         pass
     def finalize_options(self):
         pass
     def run(self):
+        version = self.distribution.get_version()
+        log.info("version: %s", version)
         values = {
-            'version': self.distribution.get_version(),
-            'doc': docstring
+            'release': release,
+            'version': version,
         }
         with Path("_meta.py").open("wt") as f:
             print(self.meta_template % values, file=f)

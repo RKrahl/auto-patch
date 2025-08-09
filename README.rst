@@ -38,13 +38,13 @@ Required library packages:
 
 Optional library packages:
 
-+ `setuptools_scm`_
++ `git-props`_
 
-  The version number is managed using this package.  All source
-  distributions add a static text file with the version number and
-  fall back using that if `setuptools_scm` is not available.  So this
-  package is only needed to build out of the plain development source
-  tree as cloned from GitHub.
+  This package is used to extract some metadata such as the version
+  number out of git, the version control system.  All releases embed
+  that metadata in the distribution.  So this package is only needed
+  to build out of the plain development source tree as cloned from
+  GitHub, but not to build a release distribution.
 
 + `pytest`_ >= 3.0
 
@@ -73,7 +73,7 @@ permissions and limitations under the License.
 .. _zypper: https://github.com/openSUSE/zypper
 .. _setuptools: https://github.com/pypa/setuptools/
 .. _python-systemd: https://github.com/systemd/python-systemd
-.. _setuptools_scm: https://github.com/pypa/setuptools_scm
+.. _git-props: https://github.com/RKrahl/git-props
 .. _pytest: https://pytest.org/
 .. _distutils-pytest: https://github.com/RKrahl/distutils-pytest
 .. _Apache License: https://www.apache.org/licenses/LICENSE-2.0
