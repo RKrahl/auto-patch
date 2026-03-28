@@ -17,6 +17,7 @@ import sys
 import tempfile
 from time import sleep
 
+from packaging.version import Version
 import systemd.journal
 
 os.environ['LANG'] = "POSIX"
@@ -214,11 +215,25 @@ class Zypper:
     def call(self, args, stdout=None):
         cmd = [self._zypper] + args
         log.debug("run: %s", " ".join(cmd))
-        stdout.flush()
+        if stdout:
+            stdout.flush()
+        else:
+            stdout = subprocess.PIPE
         proc = subprocess.run(cmd, stdout=stdout, stderr=subprocess.PIPE,
                               universal_newlines=True)
         log.debug("return code from zypper: %d", proc.returncode)
         ZypperExitException.check_returncode(proc)
+        return proc.stdout
+
+    @property
+    def version(self):
+        try:
+            return self._version
+        except AttributeError:
+            pname, vstr = self.call(["--version"]).strip().split()
+            assert pname == "zypper"
+            self._version = Version(vstr)
+            return self._version
 
     def patch_check(self, stdout=None):
         args = ["--quiet", "--non-interactive", "patch-check"]
