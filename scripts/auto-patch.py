@@ -211,9 +211,8 @@ class Zypper:
 
     _zypper = "/usr/bin/zypper"
 
-    @classmethod
-    def call(cls, args, stdout=None):
-        cmd = [cls._zypper] + args
+    def call(self, args, stdout=None):
+        cmd = [self._zypper] + args
         log.debug("run: %s", " ".join(cmd))
         stdout.flush()
         proc = subprocess.run(cmd, stdout=stdout, stderr=subprocess.PIPE,
@@ -221,28 +220,25 @@ class Zypper:
         log.debug("return code from zypper: %d", proc.returncode)
         ZypperExitException.check_returncode(proc)
 
-    @classmethod
-    def patch_check(cls, stdout=None):
+    def patch_check(self, stdout=None):
         args = ["--quiet", "--non-interactive", "patch-check"]
-        return cls.call(args, stdout=stdout)
+        return self.call(args, stdout=stdout)
 
-    @classmethod
-    def list_patches(cls, stdout=None):
+    def list_patches(self, stdout=None):
         args = ["--quiet", "--non-interactive", "list-patches"]
-        return cls.call(args, stdout=stdout)
+        return self.call(args, stdout=stdout)
 
-    @classmethod
-    def patch(cls, stdout=None):
+    def patch(self, stdout=None):
         args = ["--quiet", "--non-interactive", "patch", "--skip-interactive"]
-        return cls.call(args, stdout=stdout)
+        return self.call(args, stdout=stdout)
 
-    @classmethod
-    def ps(cls, stdout=None):
+    def ps(self, stdout=None):
         args = ["--quiet", "ps"]
-        return cls.call(args, stdout=stdout)
+        return self.call(args, stdout=stdout)
 
 
 def patch(stdout=None):
+    zypper = Zypper()
     check_line_re = r"^\d+ patch(:?es)? needed \(\d+ security patch(:?es)?\)$"
     check_line_pattern = re.compile(check_line_re, flags=re.M)
     have_patches = False
@@ -253,7 +249,7 @@ def patch(stdout=None):
             while True:
                 p = stdout.tell()
                 try:
-                    Zypper.patch_check(stdout=stdout)
+                    zypper.patch_check(stdout=stdout)
                     log.debug("no patches needed")
                     break
                 except (ZypperPatchesAvailable, ZypperSecurityPatchesAvailable):
@@ -265,9 +261,9 @@ def patch(stdout=None):
                 else:
                     log.info("patches are needed")
                 have_patches = True
-                Zypper.list_patches(stdout=stdout)
+                zypper.list_patches(stdout=stdout)
                 try:
-                    Zypper.patch(stdout=stdout)
+                    zypper.patch(stdout=stdout)
                     log.info("patches successfully installed")
                     break
                 except ZypperRebootNeeded:
@@ -280,7 +276,7 @@ def patch(stdout=None):
             if not have_patches:
                 return False
             try:
-                Zypper.ps(stdout=stdout)
+                zypper.ps(stdout=stdout)
             except ZypperRebootNeeded:
                 log.warning("reboot is required after installing patches")
             return True
