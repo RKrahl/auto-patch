@@ -100,7 +100,7 @@ setup(
     author_email = "rolf@rotkraut.de",
     license = "Apache-2.0",
     classifiers = [
-        "Development Status :: 4 - Beta",
+        "Development Status :: 5 - Production/Stable",
         "Intended Audience :: System Administrators",
         "License :: OSI Approved :: Apache Software License",
         "Operating System :: POSIX :: Linux",
@@ -118,7 +118,8 @@ setup(
     ],
     project_urls = dict(
         Source="https://github.com/RKrahl/auto-patch",
-        Download=("https://github.com/RKrahl/auto-patch/releases/%s/" % release),
+        Download=("https://github.com/RKrahl/auto-patch/releases/%s/"
+                  % release),
     ),
     python_requires = ">=3.6",
     install_requires = ["setuptools", "packaging", "systemd-python"],
