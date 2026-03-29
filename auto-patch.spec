@@ -9,7 +9,9 @@ License:	Apache-2.0
 Group:		System/Management
 Source:		%{name}-%{version}.tar.gz
 BuildRequires:	python3-base >= 3.6
+BuildRequires:	python3-pip
 BuildRequires:	python3-setuptools
+BuildRequires:	python3-wheel
 BuildRequires:	systemd-rpm-macros
 %if %{with tests}
 BuildRequires:	python3-distutils-pytest
@@ -35,12 +37,13 @@ $long_description
 
 
 %build
-python3 setup.py build
+%pyproject_wheel
 
 
 %install
-python3 setup.py install --prefix=%{_prefix} --root=%{buildroot} --install-scripts=%{_sbindir}
-mv %{buildroot}%{_sbindir}/auto-patch.py %{buildroot}%{_sbindir}/auto-patch
+%pyproject_install
+install -d -m 755 %{buildroot}%{_sbindir}
+mv %{buildroot}%{_bindir}/auto-patch.py %{buildroot}%{_sbindir}/auto-patch
 install -d -m 755 %{buildroot}%{_sysconfdir}
 cp -p etc/auto-patch.cfg %{buildroot}%{_sysconfdir}
 install -d -m 755 %{buildroot}%{_unitdir}
