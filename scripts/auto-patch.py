@@ -248,6 +248,8 @@ class Zypper:
 
     def patch(self, stdout=None):
         args = ["--quiet", "--non-interactive", "patch", "--skip-interactive"]
+        if self.version >= Version("1.14.69"):
+            args.append("--skip-not-applicable-patches")
         return self.call(args, stdout=stdout)
 
     def ps(self, stdout=None):
@@ -293,6 +295,10 @@ def patch(stdout=None):
                     continue
             if not have_patches:
                 return False
+            try:
+                zypper.patch_check(stdout=stdout)
+            except (ZypperPatchesAvailable, ZypperSecurityPatchesAvailable):
+                pass
             try:
                 zypper.ps(stdout=stdout)
             except ZypperRebootNeeded:

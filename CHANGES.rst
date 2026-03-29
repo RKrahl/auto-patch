@@ -5,12 +5,20 @@ Changelog
 dev (not yet released)
 ~~~~~~~~~~~~~~~~~~~~~~
 
+New features
+------------
+
++ `#20`_, `#22`_: add flag `--skip-not-applicable-patches` to the
+  `zypper patch` call.
+
 Internal
 --------
 
 + `#21`_: check the version of zypper and some internal refactoring.
 
+.. _#20: https://github.com/RKrahl/auto-patch/issues/20
 .. _#21: https://github.com/RKrahl/auto-patch/pull/21
+.. _#22: https://github.com/RKrahl/auto-patch/pull/22
 
 
 .. _changes-1_1_1:

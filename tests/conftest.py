@@ -23,6 +23,7 @@ def get_zypper_argument_parser():
     parser.add_argument('--non-interactive', action='store_true')
     parser.add_argument('subcmd', nargs='?')
     parser.add_argument('--skip-interactive', action='store_true')
+    parser.add_argument('--skip-not-applicable-patches', action='store_true')
     return parser
 
 zypper_arg_parser = get_zypper_argument_parser()
