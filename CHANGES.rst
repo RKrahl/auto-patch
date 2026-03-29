@@ -2,6 +2,17 @@ Changelog
 =========
 
 
+dev (not yet released)
+~~~~~~~~~~~~~~~~~~~~~~
+
+Internal
+--------
+
++ `#21`_: check the version of zypper and some internal refactoring.
+
+.. _#21: https://github.com/RKrahl/auto-patch/pull/21
+
+
 .. _changes-1_1_1:
 
 1.1.1 (2025-08-09)
