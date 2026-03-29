@@ -59,3 +59,12 @@ def test_patch_psreboot(tmpdir):
         caller = AutoPatchCaller.get_caller("patch_psreboot")
         caller.run()
         caller.check_report()
+
+
+def test_patch_conflict(tmpdir):
+    """Some patches can not be applied without conflict.
+    """
+    with tmpdir.as_cwd():
+        caller = AutoPatchCaller.get_caller("patch_conflict")
+        caller.run()
+        caller.check_report()
