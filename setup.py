@@ -121,7 +121,7 @@ setup(
         Download=("https://github.com/RKrahl/auto-patch/releases/%s/" % release),
     ),
     python_requires = ">=3.6",
-    install_requires = ["setuptools", "systemd-python"],
+    install_requires = ["setuptools", "packaging", "systemd-python"],
     packages = [],
     py_modules = [],
     scripts = ["scripts/auto-patch.py"],

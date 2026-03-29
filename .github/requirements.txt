@@ -1,4 +1,5 @@
 distutils-pytest
 git-props
+packaging
 pytest >=3.0.0
 systemd-python

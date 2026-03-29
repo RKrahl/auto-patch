@@ -1,11 +1,21 @@
 {
   "no_patches": [
     {
+      "cmd": null,
+      "stdout": "zypper 1.14.50",
+      "capture": false
+    },
+    {
       "cmd": "patch-check",
       "stdout": "\n0 patches needed (0 security patches)\n"
     }
   ],
   "rec_patches": [
+    {
+      "cmd": null,
+      "stdout": "zypper 1.14.50",
+      "capture": false
+    },
     {
       "cmd": "patch-check",
       "returncode": 100,
@@ -25,6 +35,11 @@
   ],
   "sec_patches": [
     {
+      "cmd": null,
+      "stdout": "zypper 1.14.50",
+      "capture": false
+    },
+    {
       "cmd": "patch-check",
       "returncode": 101,
       "stdout": "\nCategory    | Patches\n------------+--------\nsecurity    | 2\nrecommended | 1\n\n3 patches needed (2 security patches)\n"
@@ -42,6 +57,11 @@
     }
   ],
   "zypp_patches": [
+    {
+      "cmd": null,
+      "stdout": "zypper 1.14.50",
+      "capture": false
+    },
     {
       "cmd": "patch-check",
       "returncode": 101,
@@ -75,6 +95,11 @@
   ],
   "patch_psproc": [
     {
+      "cmd": null,
+      "stdout": "zypper 1.14.50",
+      "capture": false
+    },
+    {
       "cmd": "patch-check",
       "returncode": 101,
       "stdout": "\nCategory | Patches\n---------+--------\nsecurity | 1\n\n1 patch needed (1 security patch)\n"
@@ -93,6 +118,11 @@
     }
   ],
   "patch_psreboot": [
+    {
+      "cmd": null,
+      "stdout": "zypper 1.14.50",
+      "capture": false
+    },
     {
       "cmd": "patch-check",
       "returncode": 100,
@@ -113,6 +143,11 @@
     }
   ],
   "locked_start": [
+    {
+      "cmd": null,
+      "stdout": "zypper 1.14.50",
+      "capture": false
+    },
     {
       "cmd": "patch-check",
       "returncode": 7,
@@ -146,6 +181,11 @@
     }
   ],
   "locked_between": [
+    {
+      "cmd": null,
+      "stdout": "zypper 1.14.50",
+      "capture": false
+    },
     {
       "cmd": "patch-check",
       "returncode": 101,
@@ -198,6 +238,11 @@
     }
   ],
   "locked_final": [
+    {
+      "cmd": null,
+      "stdout": "zypper 1.14.50",
+      "capture": false
+    },
     {
       "cmd": "patch-check",
       "returncode": 101,
@@ -256,6 +301,11 @@
   ],
   "locked_complete": [
     {
+      "cmd": null,
+      "stdout": "zypper 1.14.50",
+      "capture": false
+    },
+    {
       "cmd": "patch-check",
       "returncode": 7,
       "stderr": "System management is locked by the application with pid 65 (zypper).\nClose this application before trying again.\n"
@@ -308,6 +358,11 @@
   ],
   "no_net_start": [
     {
+      "cmd": null,
+      "stdout": "zypper 1.14.57",
+      "capture": false
+    },
+    {
       "cmd": "patch-check",
       "returncode": 106,
       "stderr": "Repository 'Update repository of openSUSE Backports' is invalid.\n[repo-backports-update|http://download.opensuse.org/update/leap/15.3/backports/] Valid metadata not found at specified URL\nHistory:\n - [|] Error trying to read from 'http://download.opensuse.org/update/leap/15.3/backports/'\n - Download (curl) error for 'http://download.opensuse.org/update/leap/15.3/backports/content':\n   Error code: Connection failed\n   Error message: Could not resolve host: download.opensuse.org\n\nRepository 'Main Repository' is invalid.\n[repo-oss|http://download.opensuse.org/distribution/leap/15.3/repo/oss/] Valid metadata not found at specified URL\nHistory:\n - [|] Error trying to read from 'http://download.opensuse.org/distribution/leap/15.3/repo/oss/'\n - Download (curl) error for 'http://download.opensuse.org/distribution/leap/15.3/repo/oss/content':\n   Error code: Connection failed\n   Error message: Could not resolve host: download.opensuse.org\n\nRepository 'Update repository with updates from SUSE Linux Enterprise 15' is invalid.\n[repo-sle-update|http://download.opensuse.org/update/leap/15.3/sle/] Valid metadata not found at specified URL\nHistory:\n - [|] Error trying to read from 'http://download.opensuse.org/update/leap/15.3/sle/'\n - Download (curl) error for 'http://download.opensuse.org/update/leap/15.3/sle/content':\n   Error code: Connection failed\n   Error message: Could not resolve host: download.opensuse.org\n\nRepository 'Main Update Repository' is invalid.\n[repo-update|http://download.opensuse.org/update/leap/15.3/oss/] Valid metadata not found at specified URL\nHistory:\n - [|] Error trying to read from 'http://download.opensuse.org/update/leap/15.3/oss/'\n - Download (curl) error for 'http://download.opensuse.org/update/leap/15.3/oss/content':\n   Error code: Connection failed\n   Error message: Could not resolve host: download.opensuse.org\n\nSome of the repositories have not been refreshed because of an error.\n",
@@ -343,6 +398,11 @@
     }
   ],
   "no_net_complete": [
+    {
+      "cmd": null,
+      "stdout": "zypper 1.14.57",
+      "capture": false
+    },
     {
       "cmd": "patch-check",
       "returncode": 106,
@@ -406,6 +466,11 @@
   ],
   "err_syntax": [
     {
+      "cmd": null,
+      "stdout": "zypper 1.14.57",
+      "capture": false
+    },
+    {
       "cmd": "patch-check",
       "returncode": 101,
       "stdout": "\nCategory    | Patches\n------------+--------\nsecurity    | 1\nrecommended | 1\n\n1 patches needed (1 security patch)\n"
@@ -422,6 +487,11 @@
   ],
   "err_permissions": [
     {
+      "cmd": null,
+      "stdout": "zypper 1.14.57",
+      "capture": false
+    },
+    {
       "cmd": "patch-check",
       "returncode": 101,
       "stdout": "\nCategory    | Patches\n------------+--------\nsecurity    | 1\nrecommended | 1\n\n1 patches needed (1 security patch)\n"
@@ -437,6 +507,11 @@
     }
   ],
   "err_scripterr": [
+    {
+      "cmd": null,
+      "stdout": "zypper 1.14.94",
+      "capture": false
+    },
     {
       "cmd": "patch-check",
       "returncode": 100,
