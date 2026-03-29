@@ -296,6 +296,10 @@ def patch(stdout=None):
             if not have_patches:
                 return False
             try:
+                zypper.patch_check(stdout=stdout)
+            except (ZypperPatchesAvailable, ZypperSecurityPatchesAvailable):
+                pass
+            try:
                 zypper.ps(stdout=stdout)
             except ZypperRebootNeeded:
                 log.warning("reboot is required after installing patches")

@@ -30,6 +30,10 @@
       "stdout": "\nThe following 3 NEW patches are going to be installed:\n  openSUSE-2020-1758 openSUSE-2020-1760 openSUSE-2020-1762\n\nThe following 7 packages are going to be upgraded:\n  chrony chrony-pool-openSUSE libprocps7 procps subversion subversion-bash-completion subversion-perl\n\n7 packages to upgrade.\nOverall download size: 4.1 MiB. Already cached: 0 B. After the operation, 4.2 KiB will be freed.\nContinue? [y/n/v/...? shows all options] (y): y\n\n"
     },
     {
+      "cmd": "patch-check",
+      "stdout": "\n0 patches needed (0 security patches)\n"
+    },
+    {
       "cmd": "ps"
     }
   ],
@@ -51,6 +55,10 @@
     {
       "cmd": "patch",
       "stdout": "\nThe following 3 NEW patches are going to be installed:\n  openSUSE-2020-1743 openSUSE-2020-1744 openSUSE-2020-1745\n\nThe following 15 packages are going to be upgraded:\n  ft2demos ftbench ftdiff ftdump ftgamma ftgrid ftinspect ftlint ftmulti ftstring ftvalid ftview libfreetype6 libgnutls30 yast2-network\n\n15 packages to upgrade.\nOverall download size: 2.2 MiB. Already cached: 0 B. After the operation, additional 21.6 KiB will be used.\nContinue? [y/n/v/...? shows all options] (y): y\n\n"
+    },
+    {
+      "cmd": "patch-check",
+      "stdout": "\n0 patches needed (0 security patches)\n"
     },
     {
       "cmd": "ps"
@@ -90,6 +98,10 @@
       "stdout": "\nThe following 4 NEW patches are going to be installed:\n  openSUSE-2020-1597 openSUSE-2020-1598 openSUSE-2020-1606 openSUSE-2020-1608\n\nThe following 6 packages are going to be upgraded:\n  openssh openssh-askpass-gnome openssh-helpers python3-pip rsyslog xen-libs\n\n6 packages to upgrade.\nOverall download size: 4.1 MiB. Already cached: 0 B. After the operation, additional 6.0 KiB will be used.\nContinue? [y/n/v/...? shows all options] (y): y\n\n"
     },
     {
+      "cmd": "patch-check",
+      "stdout": "\n0 patches needed (0 security patches)\n"
+    },
+    {
       "cmd": "ps"
     }
   ],
@@ -111,6 +123,10 @@
     {
       "cmd": "patch",
       "stdout": "\nThe following NEW patch is going to be installed:\n  openSUSE-2020-1693\n\nThe following 2 packages are going to be upgraded:\n  libgcc_s1 libstdc++6\n\n2 packages to upgrade.\nOverall download size: 528.0 KiB. Already cached: 0 B. After the operation, 23.8 KiB will be freed.\nContinue? [y/n/v/...? shows all options] (y): y\n\n"
+    },
+    {
+      "cmd": "patch-check",
+      "stdout": "\n0 patches needed (0 security patches)\n"
     },
     {
       "cmd": "ps",
@@ -135,6 +151,10 @@
     {
       "cmd": "patch",
       "stdout": "\nThe following 2 NEW patches are going to be installed:\n  openSUSE-2020-1672 openSUSE-2020-1673\n\nThe following 4 packages are going to be upgraded:\n  kpartx libopenssl1_1 multipath-tools openssl-1_1\n\nThe following package requires a system reboot:\n  libopenssl1_1\n\n4 packages to upgrade.\nOverall download size: 2.4 MiB. Already cached: 0 B. After the operation, additional 5.2 KiB will be used.\n\nContinue? [y/n/v/...? shows all options] (y): y\n\n"
+    },
+    {
+      "cmd": "patch-check",
+      "stdout": "\n0 patches needed (0 security patches)\n"
     },
     {
       "cmd": "ps",
@@ -175,6 +195,10 @@
     {
       "cmd": "patch",
       "stdout": "\nThe following 2 NEW patches are going to be installed:\n  openSUSE-2020-1780 openSUSE-2020-1783\n\nThe following 2 packages are going to be upgraded:\n  mozilla-nspr xen-libs\n\n2 packages to upgrade.\nOverall download size: 807.3 KiB. Already cached: 0 B. After the operation, additional 48.0 B will be used.\nContinue? [y/n/v/...? shows all options] (y): y\n\n"
+    },
+    {
+      "cmd": "patch-check",
+      "stdout": "\n0 patches needed (0 security patches)\n"
     },
     {
       "cmd": "ps"
@@ -232,6 +256,10 @@
     {
       "cmd": "patch",
       "stdout": "\nThe following 2 NEW patches are going to be installed:\n  openSUSE-2020-1780 openSUSE-2020-1783\n\nThe following 2 packages are going to be upgraded:\n  mozilla-nspr xen-libs\n\n2 packages to upgrade.\nOverall download size: 807.3 KiB. Already cached: 0 B. After the operation, additional 48.0 B will be used.\nContinue? [y/n/v/...? shows all options] (y): y\n\n"
+    },
+    {
+      "cmd": "patch-check",
+      "stdout": "\n0 patches needed (0 security patches)\n"
     },
     {
       "cmd": "ps"
@@ -392,6 +420,10 @@
     {
       "cmd": "patch",
       "stdout": "\nThe following 2 packages are going to be upgraded:\n  ca-certificates-mozilla libsqlite3-0\n\nThe following 2 NEW patches are going to be installed:\n  openSUSE-SLE-15.3-2022-3307 openSUSE-SLE-15.3-2022-3395\n\n2 packages to upgrade.\nOverall download size: 1007.5 KiB. Already cached: 0 B. After the operation, additional 116.6 KiB will be used.\nContinue? [y/n/v/...? shows all options] (y): y\n\n"
+    },
+    {
+      "cmd": "patch-check",
+      "stdout": "\n0 patches needed (0 security patches)\n"
     },
     {
       "cmd": "ps"
