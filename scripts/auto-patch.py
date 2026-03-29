@@ -212,6 +212,9 @@ class Zypper:
 
     _zypper = "/usr/bin/zypper"
 
+    def __init__(self):
+        log.debug("zypper %s", self.version)
+
     def call(self, args, stdout=None):
         cmd = [self._zypper] + args
         log.debug("run: %s", " ".join(cmd))

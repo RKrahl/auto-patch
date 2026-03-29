@@ -18,9 +18,10 @@ os.environ['AUTO_PATCH_CFG'] = "auto-patch.cfg"
 
 def get_zypper_argument_parser():
     parser = argparse.ArgumentParser()
+    parser.add_argument('--version', action='store_true')
     parser.add_argument('--quiet', action='store_true')
     parser.add_argument('--non-interactive', action='store_true')
-    parser.add_argument('subcmd')
+    parser.add_argument('subcmd', nargs='?')
     parser.add_argument('--skip-interactive', action='store_true')
     return parser
 
@@ -37,10 +38,16 @@ class mock_subprocess_run:
         zypp_res = next(self.results_iter)
         assert Path(cmd[0]).name == "zypper"
         args = zypper_arg_parser.parse_args(args=cmd[1:])
-        assert args.subcmd == zypp_res.cmd
-        stdout.write(zypp_res.stdout)
-        return subprocess.CompletedProcess(cmd, zypp_res.returncode,
-                                           stderr=zypp_res.stderr)
+        assert (args.version or args.subcmd) and (args.subcmd == zypp_res.cmd)
+        if stdout == subprocess.PIPE:
+            proc = subprocess.CompletedProcess(cmd, zypp_res.returncode,
+                                               stdout=zypp_res.stdout,
+                                               stderr=zypp_res.stderr)
+        else:
+            stdout.write(zypp_res.stdout)
+            proc = subprocess.CompletedProcess(cmd, zypp_res.returncode,
+                                               stderr=zypp_res.stderr)
+        return proc
 
 class mock_smtp(contextlib.AbstractContextManager):
     """A mock replacement for smtplib.SMTP.
@@ -71,11 +78,12 @@ def invoke_auto_patch(zypper_results):
 class ZypperResult:
     """Represent the result of one mock zypper call in AutoPatchCaller.
     """
-    def __init__(self, cmd, returncode=0, stdout="", stderr=""):
+    def __init__(self, cmd, returncode=0, stdout="", stderr="", capture=True):
         self.cmd = cmd
         self.returncode = returncode
         self.stdout = stdout
         self.stderr = stderr
+        self.capture = capture
 
 class AutoPatchCaller:
     """Execute the auto-patch.py script in a prepared Python interpreter.
@@ -129,6 +137,8 @@ class AutoPatchCaller:
         body = msg.get_content()
         idx = 0
         for res in self.zypper_results:
+            if not res.capture:
+                continue
             idx = body.find(res.stdout, idx)
             assert idx >= 0
             idx += len(res.stdout)
