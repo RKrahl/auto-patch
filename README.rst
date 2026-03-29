@@ -34,6 +34,8 @@ Required library packages:
 
 + `setuptools`_
 
++ `packaging`_
+
 + `python-systemd`_
 
   Note: it is recommended to install this from the package repository
@@ -77,6 +79,7 @@ permissions and limitations under the License.
 
 .. _zypper: https://github.com/openSUSE/zypper
 .. _setuptools: https://github.com/pypa/setuptools/
+.. _packaging: https://github.com/pypa/packaging/
 .. _python-systemd: https://github.com/systemd/python-systemd
 .. _systemd-python: https://pypi.org/project/systemd-python/
 .. _git-props: https://github.com/RKrahl/git-props

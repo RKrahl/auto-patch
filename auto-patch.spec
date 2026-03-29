@@ -14,9 +14,11 @@ BuildRequires:	systemd-rpm-macros
 %if %{with tests}
 BuildRequires:	python3-distutils-pytest
 BuildRequires:	python3-pytest >= 3.0
+BuildRequires:	python3-packaging
 BuildRequires:	python3-systemd
 %endif
 Requires:	lsof
+Requires:	python3-packaging
 Requires:	python3-systemd
 Requires:	systemd
 Requires:	zypper
