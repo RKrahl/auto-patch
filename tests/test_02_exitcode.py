@@ -46,3 +46,18 @@ def test_error_scripterr(tmpdir):
         caller = AutoPatchCaller.get_caller("err_scripterr")
         caller.run(exitcode=107)
         caller.check_report(extra_msg="ERROR:")
+
+
+def test_error_license(tmpdir):
+    """Patch fails due to missing license confirmation.
+
+    A patch for a non-free package requires agreement with the terms
+    of the license, which doesn't work in non-interactive mode.  The
+    patch command fails with ZypperLibraryError.
+    """
+    with tmpdir.as_cwd():
+        caller = AutoPatchCaller.get_caller("no_license_consent")
+        caller.run(exitcode=4)
+        # assert that no mail report has been sent:
+        with pytest.raises(FileNotFoundError):
+            caller.check_report()
