@@ -2,6 +2,19 @@ Changelog
 =========
 
 
+.. _changes-1_3_0:
+
+1.3.0 (not yet released)
+~~~~~~~~~~~~~~~~~~~~~~~~
+
+Internal
+--------
+
++ `#26`_: add two more test cases.
+
+.. _#26: https://github.com/RKrahl/auto-patch/pull/26
+
+
 .. _changes-1_2_0:
 
 1.2.0 (2026-03-29)
