@@ -10,6 +10,17 @@
       "stdout": "\n0 patches needed (0 security patches)\n"
     }
   ],
+  "opt_patches": [
+    {
+      "cmd": null,
+      "stdout": "zypper 1.14.94",
+      "capture": false
+    },
+    {
+      "cmd": "patch-check",
+      "stdout": "\nCategory | Patches\n---------+--------\noptional | 1\n\n1 patch optional             (use '--with-optional' to include optional patches)\n0 patches needed (0 security patches)\n"
+    }
+  ],
   "rec_patches": [
     {
       "cmd": null,

@@ -16,6 +16,17 @@ def test_no_patches(tmpdir):
             caller.check_report()
 
 
+def test_opt_patches(tmpdir):
+    """Only optional patches available, but no required patches.
+    """
+    with tmpdir.as_cwd():
+        caller = AutoPatchCaller.get_caller("opt_patches")
+        caller.run()
+        # assert that no mail report has been sent:
+        with pytest.raises(FileNotFoundError):
+            caller.check_report()
+
+
 def test_rec_patches(tmpdir):
     """Some recommended patches available, but no security patches.
     """
