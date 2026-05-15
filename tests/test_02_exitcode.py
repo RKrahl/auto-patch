@@ -17,9 +17,7 @@ def test_error_syntax(tmpdir):
     with tmpdir.as_cwd():
         caller = AutoPatchCaller.get_caller("err_syntax")
         caller.run(exitcode=2)
-        # assert that no mail report has been sent:
-        with pytest.raises(FileNotFoundError):
-            caller.check_report()
+        caller.check_report(extra_msg="ERROR:")
 
 
 def test_error_permission(tmpdir):
@@ -31,9 +29,7 @@ def test_error_permission(tmpdir):
     with tmpdir.as_cwd():
         caller = AutoPatchCaller.get_caller("err_permissions")
         caller.run(exitcode=5)
-        # assert that no mail report has been sent:
-        with pytest.raises(FileNotFoundError):
-            caller.check_report()
+        caller.check_report(extra_msg="ERROR:")
 
 
 def test_error_scripterr(tmpdir):
@@ -58,6 +54,4 @@ def test_error_license(tmpdir):
     with tmpdir.as_cwd():
         caller = AutoPatchCaller.get_caller("no_license_consent")
         caller.run(exitcode=4)
-        # assert that no mail report has been sent:
-        with pytest.raises(FileNotFoundError):
-            caller.check_report()
+        caller.check_report(extra_msg="ERROR:")

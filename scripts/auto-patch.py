@@ -334,8 +334,7 @@ def main():
         with logging_add_report(config['logging'], tmpf):
             try:
                 have_patches = patch(stdout=tmpf)
-            except (ZypperCommitError, ZypperRPMScriptfailed,
-                    ZypperSignal) as err:
+            except ZypperExitException as err:
                 log.error(err)
                 exit_code = err.ExitCode
         if exit_code or have_patches:
@@ -345,14 +344,6 @@ def main():
 if __name__ == "__main__":
     try:
         exit_code = main()
-    except (ZypperPrivilegesError, ZypperNoReposError, ZypperLockedError,
-            ZypperReposSkipped) as err:
-        log.error(err)
-        sys.exit(err.ExitCode)
-    except ZypperExitException as err:
-        log.critical("Internal error %s: %s", type(err).__name__, err,
-                     exc_info=err)
-        sys.exit(err.ExitCode)
     except Exception as err:
         log.critical("Internal error %s: %s", type(err).__name__, err,
                      exc_info=err)
