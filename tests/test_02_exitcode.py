@@ -9,7 +9,6 @@ import pytest
 from conftest import AutoPatchCaller
 
 
-@pytest.mark.xfail(reason="Issue #24")
 def test_error_syntax(tmpdir):
     """A syntax error in the zypper call.
 
@@ -21,7 +20,6 @@ def test_error_syntax(tmpdir):
         caller.check_report(extra_msg="ERROR:")
 
 
-@pytest.mark.xfail(reason="Issue #24")
 def test_error_permission(tmpdir):
     """Insufficient privileges calling zypper.
 
@@ -46,7 +44,6 @@ def test_error_scripterr(tmpdir):
         caller.check_report(extra_msg="ERROR:")
 
 
-@pytest.mark.xfail(reason="Issue #24")
 def test_error_license(tmpdir):
     """Patch fails due to missing license confirmation.
 

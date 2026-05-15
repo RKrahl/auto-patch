@@ -28,7 +28,6 @@ def test_locked_in_between(tmpdir):
         caller.check_report()
 
 
-@pytest.mark.xfail(reason="Issue #24")
 def test_locked_final(tmpdir):
     """The auto-patch workflow is interrupted by a persistent lock,
     auto-patch eventually gives up waiting.
@@ -39,7 +38,6 @@ def test_locked_final(tmpdir):
         caller.check_report(extra_msg="ERROR:")
 
 
-@pytest.mark.xfail(reason="Issue #24")
 def test_locked_complete(tmpdir):
     """A persistent lock blocks auto-patch completely, auto-patch
     eventually gives up waiting, not a single zypper succeeded.
@@ -59,7 +57,6 @@ def test_no_network_at_start(tmpdir):
         caller.check_report()
 
 
-@pytest.mark.xfail(reason="Issue #24")
 def test_no_network_complete(tmpdir):
     """A persistent network failure blocks auto-patch completely,
     auto-patch eventually gives up waiting, not a single zypper
