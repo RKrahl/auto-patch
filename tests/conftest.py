@@ -33,9 +33,12 @@ class mock_subprocess_run:
     It fakes all invocations of the zypper binary.
     """
     def __init__(self, results):
+        self.expected_calls = len(results)
+        self.calls = 0
         self.results_iter = iter(results)
 
     def __call__(self, cmd, stdout=None, **kwargs):
+        self.calls += 1
         zypp_res = next(self.results_iter)
         assert Path(cmd[0]).name == "zypper"
         args = zypper_arg_parser.parse_args(args=cmd[1:])
@@ -49,6 +52,9 @@ class mock_subprocess_run:
             proc = subprocess.CompletedProcess(cmd, zypp_res.returncode,
                                                stderr=zypp_res.stderr)
         return proc
+
+    def check_num_calls(self):
+        return self.calls == self.expected_calls
 
 class mock_smtp(contextlib.AbstractContextManager):
     """A mock replacement for smtplib.SMTP.
@@ -69,12 +75,24 @@ def invoke_auto_patch(zypper_results):
     """Patch the current Python intepreter and execute auto-patch.py.
     This function is supposed to be the target of a Process.
     """
+    import logging
     import subprocess
     import smtplib
-    subprocess.run = mock_subprocess_run(zypper_results)
+    import sys
+    mock_run = mock_subprocess_run(zypper_results)
+    subprocess.run = mock_run
     smtplib.SMTP = mock_smtp
-    with auto_patch_path.open("rt") as script:
-        exec(script.read(), dict(__name__="__main__"))
+    log = logging.getLogger(__name__)
+    with auto_patch_path.open("rt") as f:
+        auto_patch = f.read()
+    try:
+        exec(auto_patch, dict(__name__="__main__"))
+    except SystemExit:
+        if not mock_run.check_num_calls():
+            log.critical("premature exit of auto-patch script")
+            sys.exit(-1)
+        else:
+            raise
 
 class ZypperResult:
     """Represent the result of one mock zypper call in AutoPatchCaller.
