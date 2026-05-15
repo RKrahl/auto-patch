@@ -28,6 +28,7 @@ def test_locked_in_between(tmpdir):
         caller.check_report()
 
 
+@pytest.mark.xfail(reason="Issue #24")
 def test_locked_final(tmpdir):
     """The auto-patch workflow is interrupted by a persistent lock,
     auto-patch eventually gives up waiting.
@@ -35,11 +36,10 @@ def test_locked_final(tmpdir):
     with tmpdir.as_cwd():
         caller = AutoPatchCaller.get_caller("locked_final", config=no_wait)
         caller.run(exitcode=7)
-        # assert that no mail report has been sent:
-        with pytest.raises(FileNotFoundError):
-            caller.check_report()
+        caller.check_report(extra_msg="ERROR:")
 
 
+@pytest.mark.xfail(reason="Issue #24")
 def test_locked_complete(tmpdir):
     """A persistent lock blocks auto-patch completely, auto-patch
     eventually gives up waiting, not a single zypper succeeded.
@@ -47,9 +47,7 @@ def test_locked_complete(tmpdir):
     with tmpdir.as_cwd():
         caller = AutoPatchCaller.get_caller("locked_complete", config=no_wait)
         caller.run(exitcode=7)
-        # assert that no mail report has been sent:
-        with pytest.raises(FileNotFoundError):
-            caller.check_report()
+        caller.check_report(extra_msg="ERROR:")
 
 
 def test_no_network_at_start(tmpdir):
@@ -61,6 +59,7 @@ def test_no_network_at_start(tmpdir):
         caller.check_report()
 
 
+@pytest.mark.xfail(reason="Issue #24")
 def test_no_network_complete(tmpdir):
     """A persistent network failure blocks auto-patch completely,
     auto-patch eventually gives up waiting, not a single zypper
@@ -69,6 +68,4 @@ def test_no_network_complete(tmpdir):
     with tmpdir.as_cwd():
         caller = AutoPatchCaller.get_caller("no_net_complete", config=no_wait)
         caller.run(exitcode=106)
-        # assert that no mail report has been sent:
-        with pytest.raises(FileNotFoundError):
-            caller.check_report()
+        caller.check_report(extra_msg="ERROR:")
