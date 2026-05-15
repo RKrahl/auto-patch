@@ -7,13 +7,21 @@ Changelog
 1.3.0 (not yet released)
 ~~~~~~~~~~~~~~~~~~~~~~~~
 
+Behavioral change
+-----------------
+
++ `#24`_, `#28`_: always send a mail report in the case of errors from
+  `zypper`.
+
 Internal
 --------
 
 + `#26`_, `#27`_: review test suite.
 
+.. _#24: https://github.com/RKrahl/auto-patch/issues/24
 .. _#26: https://github.com/RKrahl/auto-patch/pull/26
 .. _#27: https://github.com/RKrahl/auto-patch/pull/27
+.. _#28: https://github.com/RKrahl/auto-patch/pull/28
 
 
 .. _changes-1_2_0:
