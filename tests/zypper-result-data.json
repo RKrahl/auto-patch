@@ -38,7 +38,13 @@
     },
     {
       "cmd": "patch",
-      "stdout": "\nThe following 3 NEW patches are going to be installed:\n  openSUSE-2020-1758 openSUSE-2020-1760 openSUSE-2020-1762\n\nThe following 7 packages are going to be upgraded:\n  chrony chrony-pool-openSUSE libprocps7 procps subversion subversion-bash-completion subversion-perl\n\n7 packages to upgrade.\nOverall download size: 4.1 MiB. Already cached: 0 B. After the operation, 4.2 KiB will be freed.\nContinue? [y/n/v/...? shows all options] (y): y\n\n"
+      "stdout": "\nThe following 3 NEW patches are going to be installed:\n  openSUSE-2020-1758 openSUSE-2020-1760 openSUSE-2020-1762\n\nThe following 7 packages are going to be upgraded:\n  chrony chrony-pool-openSUSE libprocps7 procps subversion subversion-bash-completion subversion-perl\n\n7 packages to upgrade.\nOverall download size: 4.1 MiB. Already cached: 0 B. After the operation, 4.2 KiB will be freed.\nContinue? [y/n/v/...? shows all options] (y): y\n\n",
+      "args": [
+        "--quiet",
+        "--non-interactive",
+        "patch",
+        "--skip-interactive"
+      ]
     },
     {
       "cmd": "patch-check",
@@ -65,7 +71,13 @@
     },
     {
       "cmd": "patch",
-      "stdout": "\nThe following 3 NEW patches are going to be installed:\n  openSUSE-2020-1743 openSUSE-2020-1744 openSUSE-2020-1745\n\nThe following 15 packages are going to be upgraded:\n  ft2demos ftbench ftdiff ftdump ftgamma ftgrid ftinspect ftlint ftmulti ftstring ftvalid ftview libfreetype6 libgnutls30 yast2-network\n\n15 packages to upgrade.\nOverall download size: 2.2 MiB. Already cached: 0 B. After the operation, additional 21.6 KiB will be used.\nContinue? [y/n/v/...? shows all options] (y): y\n\n"
+      "stdout": "\nThe following 3 NEW patches are going to be installed:\n  openSUSE-2020-1743 openSUSE-2020-1744 openSUSE-2020-1745\n\nThe following 15 packages are going to be upgraded:\n  ft2demos ftbench ftdiff ftdump ftgamma ftgrid ftinspect ftlint ftmulti ftstring ftvalid ftview libfreetype6 libgnutls30 yast2-network\n\n15 packages to upgrade.\nOverall download size: 2.2 MiB. Already cached: 0 B. After the operation, additional 21.6 KiB will be used.\nContinue? [y/n/v/...? shows all options] (y): y\n\n",
+      "args": [
+        "--quiet",
+        "--non-interactive",
+        "patch",
+        "--skip-interactive"
+      ]
     },
     {
       "cmd": "patch-check",
@@ -93,7 +105,13 @@
     {
       "cmd": "patch",
       "returncode": 103,
-      "stdout": "\nThe following NEW patch is going to be installed:\n  openSUSE-2020-1615\n\nThe following 4 packages are going to be upgraded:\n  libzypp zypper zypper-log zypper-needs-restarting\n\n4 packages to upgrade.\nOverall download size: 3.8 MiB. Already cached: 0 B. After the operation, additional 53.5 KiB will be used.\n\nContinue? [y/n/v/...? shows all options] (y): y\n\nWarning: One of the installed patches affects the package manager itself. Run this command once more to install any other needed patches.\n"
+      "stdout": "\nThe following NEW patch is going to be installed:\n  openSUSE-2020-1615\n\nThe following 4 packages are going to be upgraded:\n  libzypp zypper zypper-log zypper-needs-restarting\n\n4 packages to upgrade.\nOverall download size: 3.8 MiB. Already cached: 0 B. After the operation, additional 53.5 KiB will be used.\n\nContinue? [y/n/v/...? shows all options] (y): y\n\nWarning: One of the installed patches affects the package manager itself. Run this command once more to install any other needed patches.\n",
+      "args": [
+        "--quiet",
+        "--non-interactive",
+        "patch",
+        "--skip-interactive"
+      ]
     },
     {
       "cmd": "patch-check",
@@ -106,7 +124,13 @@
     },
     {
       "cmd": "patch",
-      "stdout": "\nThe following 4 NEW patches are going to be installed:\n  openSUSE-2020-1597 openSUSE-2020-1598 openSUSE-2020-1606 openSUSE-2020-1608\n\nThe following 6 packages are going to be upgraded:\n  openssh openssh-askpass-gnome openssh-helpers python3-pip rsyslog xen-libs\n\n6 packages to upgrade.\nOverall download size: 4.1 MiB. Already cached: 0 B. After the operation, additional 6.0 KiB will be used.\nContinue? [y/n/v/...? shows all options] (y): y\n\n"
+      "stdout": "\nThe following 4 NEW patches are going to be installed:\n  openSUSE-2020-1597 openSUSE-2020-1598 openSUSE-2020-1606 openSUSE-2020-1608\n\nThe following 6 packages are going to be upgraded:\n  openssh openssh-askpass-gnome openssh-helpers python3-pip rsyslog xen-libs\n\n6 packages to upgrade.\nOverall download size: 4.1 MiB. Already cached: 0 B. After the operation, additional 6.0 KiB will be used.\nContinue? [y/n/v/...? shows all options] (y): y\n\n",
+      "args": [
+        "--quiet",
+        "--non-interactive",
+        "patch",
+        "--skip-interactive"
+      ]
     },
     {
       "cmd": "patch-check",
@@ -133,7 +157,13 @@
     },
     {
       "cmd": "patch",
-      "stdout": "\nThe following NEW patch is going to be installed:\n  openSUSE-2020-1693\n\nThe following 2 packages are going to be upgraded:\n  libgcc_s1 libstdc++6\n\n2 packages to upgrade.\nOverall download size: 528.0 KiB. Already cached: 0 B. After the operation, 23.8 KiB will be freed.\nContinue? [y/n/v/...? shows all options] (y): y\n\n"
+      "stdout": "\nThe following NEW patch is going to be installed:\n  openSUSE-2020-1693\n\nThe following 2 packages are going to be upgraded:\n  libgcc_s1 libstdc++6\n\n2 packages to upgrade.\nOverall download size: 528.0 KiB. Already cached: 0 B. After the operation, 23.8 KiB will be freed.\nContinue? [y/n/v/...? shows all options] (y): y\n\n",
+      "args": [
+        "--quiet",
+        "--non-interactive",
+        "patch",
+        "--skip-interactive"
+      ]
     },
     {
       "cmd": "patch-check",
@@ -161,7 +191,13 @@
     },
     {
       "cmd": "patch",
-      "stdout": "\nThe following 2 NEW patches are going to be installed:\n  openSUSE-2020-1672 openSUSE-2020-1673\n\nThe following 4 packages are going to be upgraded:\n  kpartx libopenssl1_1 multipath-tools openssl-1_1\n\nThe following package requires a system reboot:\n  libopenssl1_1\n\n4 packages to upgrade.\nOverall download size: 2.4 MiB. Already cached: 0 B. After the operation, additional 5.2 KiB will be used.\n\nContinue? [y/n/v/...? shows all options] (y): y\n\n"
+      "stdout": "\nThe following 2 NEW patches are going to be installed:\n  openSUSE-2020-1672 openSUSE-2020-1673\n\nThe following 4 packages are going to be upgraded:\n  kpartx libopenssl1_1 multipath-tools openssl-1_1\n\nThe following package requires a system reboot:\n  libopenssl1_1\n\n4 packages to upgrade.\nOverall download size: 2.4 MiB. Already cached: 0 B. After the operation, additional 5.2 KiB will be used.\n\nContinue? [y/n/v/...? shows all options] (y): y\n\n",
+      "args": [
+        "--quiet",
+        "--non-interactive",
+        "patch",
+        "--skip-interactive"
+      ]
     },
     {
       "cmd": "patch-check",
@@ -205,7 +241,13 @@
     },
     {
       "cmd": "patch",
-      "stdout": "\nThe following 2 NEW patches are going to be installed:\n  openSUSE-2020-1780 openSUSE-2020-1783\n\nThe following 2 packages are going to be upgraded:\n  mozilla-nspr xen-libs\n\n2 packages to upgrade.\nOverall download size: 807.3 KiB. Already cached: 0 B. After the operation, additional 48.0 B will be used.\nContinue? [y/n/v/...? shows all options] (y): y\n\n"
+      "stdout": "\nThe following 2 NEW patches are going to be installed:\n  openSUSE-2020-1780 openSUSE-2020-1783\n\nThe following 2 packages are going to be upgraded:\n  mozilla-nspr xen-libs\n\n2 packages to upgrade.\nOverall download size: 807.3 KiB. Already cached: 0 B. After the operation, additional 48.0 B will be used.\nContinue? [y/n/v/...? shows all options] (y): y\n\n",
+      "args": [
+        "--quiet",
+        "--non-interactive",
+        "patch",
+        "--skip-interactive"
+      ]
     },
     {
       "cmd": "patch-check",
@@ -233,7 +275,13 @@
     {
       "cmd": "patch",
       "returncode": 7,
-      "stderr": "System management is locked by the application with pid 58 (zypper).\nClose this application before trying again.\n"
+      "stderr": "System management is locked by the application with pid 58 (zypper).\nClose this application before trying again.\n",
+      "args": [
+        "--quiet",
+        "--non-interactive",
+        "patch",
+        "--skip-interactive"
+      ]
     },
     {
       "cmd": "patch-check",
@@ -266,7 +314,13 @@
     },
     {
       "cmd": "patch",
-      "stdout": "\nThe following 2 NEW patches are going to be installed:\n  openSUSE-2020-1780 openSUSE-2020-1783\n\nThe following 2 packages are going to be upgraded:\n  mozilla-nspr xen-libs\n\n2 packages to upgrade.\nOverall download size: 807.3 KiB. Already cached: 0 B. After the operation, additional 48.0 B will be used.\nContinue? [y/n/v/...? shows all options] (y): y\n\n"
+      "stdout": "\nThe following 2 NEW patches are going to be installed:\n  openSUSE-2020-1780 openSUSE-2020-1783\n\nThe following 2 packages are going to be upgraded:\n  mozilla-nspr xen-libs\n\n2 packages to upgrade.\nOverall download size: 807.3 KiB. Already cached: 0 B. After the operation, additional 48.0 B will be used.\nContinue? [y/n/v/...? shows all options] (y): y\n\n",
+      "args": [
+        "--quiet",
+        "--non-interactive",
+        "patch",
+        "--skip-interactive"
+      ]
     },
     {
       "cmd": "patch-check",
@@ -430,7 +484,13 @@
     },
     {
       "cmd": "patch",
-      "stdout": "\nThe following 2 packages are going to be upgraded:\n  ca-certificates-mozilla libsqlite3-0\n\nThe following 2 NEW patches are going to be installed:\n  openSUSE-SLE-15.3-2022-3307 openSUSE-SLE-15.3-2022-3395\n\n2 packages to upgrade.\nOverall download size: 1007.5 KiB. Already cached: 0 B. After the operation, additional 116.6 KiB will be used.\nContinue? [y/n/v/...? shows all options] (y): y\n\n"
+      "stdout": "\nThe following 2 packages are going to be upgraded:\n  ca-certificates-mozilla libsqlite3-0\n\nThe following 2 NEW patches are going to be installed:\n  openSUSE-SLE-15.3-2022-3307 openSUSE-SLE-15.3-2022-3395\n\n2 packages to upgrade.\nOverall download size: 1007.5 KiB. Already cached: 0 B. After the operation, additional 116.6 KiB will be used.\nContinue? [y/n/v/...? shows all options] (y): y\n\n",
+      "args": [
+        "--quiet",
+        "--non-interactive",
+        "patch",
+        "--skip-interactive"
+      ]
     },
     {
       "cmd": "patch-check",
@@ -525,7 +585,13 @@
     {
       "cmd": "patch",
       "returncode": 2,
-      "stderr": "Unknown command 'bla-patch'\n"
+      "stderr": "Unknown command 'bla-patch'\n",
+      "args": [
+        "--quiet",
+        "--non-interactive",
+        "patch",
+        "--skip-interactive"
+      ]
     }
   ],
   "err_permissions": [
@@ -546,7 +612,13 @@
     {
       "cmd": "patch",
       "returncode": 5,
-      "stderr": "Root privileges are required to run this command.\n"
+      "stderr": "Root privileges are required to run this command.\n",
+      "args": [
+        "--quiet",
+        "--non-interactive",
+        "patch",
+        "--skip-interactive"
+      ]
     }
   ],
   "err_scripterr": [
@@ -567,7 +639,14 @@
     {
       "cmd": "patch",
       "returncode": 107,
-      "stdout": "\nThe following 2 packages are going to be upgraded:\n  python3-pip python3-pytest\n\nThe following NEW patch is going to be installed:\n  openSUSE-SLE-15.6-2025-2574\n\n2 packages to upgrade.\n\nPackage download size:     2.2 MiB\n\nPackage install size change:\n              |      10.2 MiB  required by packages that will be installed\n    -1.8 MiB  |  -   12.0 MiB  released by packages that will be removed\n\nBackend:  classic_rpmtrans\nContinue? [y/n/v/...? shows all options] (y): y\n\n"
+      "stdout": "\nThe following 2 packages are going to be upgraded:\n  python3-pip python3-pytest\n\nThe following NEW patch is going to be installed:\n  openSUSE-SLE-15.6-2025-2574\n\n2 packages to upgrade.\n\nPackage download size:     2.2 MiB\n\nPackage install size change:\n              |      10.2 MiB  required by packages that will be installed\n    -1.8 MiB  |  -   12.0 MiB  released by packages that will be removed\n\nBackend:  classic_rpmtrans\nContinue? [y/n/v/...? shows all options] (y): y\n\n",
+      "args": [
+        "--quiet",
+        "--non-interactive",
+        "patch",
+        "--skip-interactive",
+        "--skip-not-applicable-patches"
+      ]
     }
   ],
   "patch_conflict": [
@@ -587,7 +666,14 @@
     },
     {
       "cmd": "patch",
-      "stdout": "\nThe following 4 packages are going to be upgraded:\n  crypto-policies libpython3_6m1_0 libsqlite3-0 python3-base\n\nThe following 3 NEW patches are going to be installed:\n  openSUSE-SLE-15.6-2026-1065 openSUSE-SLE-15.6-2026-1090 openSUSE-SLE-15.6-2026-1113\n\nSkipped needed patches which do not apply without conflict: [-skip-not-applicable-patches]\n  openSUSE-SLE-15.6-2026-1084\n\n4 packages to upgrade.\n\nPackage download size:     9.8 MiB\n\nPackage install size change:\n              |      35.9 MiB  required by packages that will be installed\n    -3.5 KiB  |  -   35.9 MiB  released by packages that will be removed\n\nBackend:  classic_rpmtrans\nContinue? [y/n/v/...? shows all options] (y): y\n\n"
+      "stdout": "\nThe following 4 packages are going to be upgraded:\n  crypto-policies libpython3_6m1_0 libsqlite3-0 python3-base\n\nThe following 3 NEW patches are going to be installed:\n  openSUSE-SLE-15.6-2026-1065 openSUSE-SLE-15.6-2026-1090 openSUSE-SLE-15.6-2026-1113\n\nSkipped needed patches which do not apply without conflict: [-skip-not-applicable-patches]\n  openSUSE-SLE-15.6-2026-1084\n\n4 packages to upgrade.\n\nPackage download size:     9.8 MiB\n\nPackage install size change:\n              |      35.9 MiB  required by packages that will be installed\n    -3.5 KiB  |  -   35.9 MiB  released by packages that will be removed\n\nBackend:  classic_rpmtrans\nContinue? [y/n/v/...? shows all options] (y): y\n\n",
+      "args": [
+        "--quiet",
+        "--non-interactive",
+        "patch",
+        "--skip-interactive",
+        "--skip-not-applicable-patches"
+      ]
     },
     {
       "cmd": "patch-check",
@@ -618,7 +704,14 @@
     {
       "cmd": "patch",
       "returncode": 4,
-      "stdout": "\nThe following 10 packages are going to be upgraded:\n  libnvidia-gpucomp nvidia-common-G06 nvidia-compute-G06 nvidia-compute-utils-G06 nvidia-gl-G06 nvidia-modprobe nvidia-open-driver-G06-signed-kmp-meta nvidia-persistenced nvidia-userspace-meta-G06 nvidia-video-G06\n\nThe following NEW package is going to be installed:\n  nvidia-open-driver-G06-signed-kmp-default-580.126.18_k6.4.0_150600.23.87-150600.3.85.1\n\nThe following NEW patch is going to be installed:\n  openSUSE-SLE-15.6-2026-1084\n\nThe following package is going to be REMOVED:\n  nvidia-open-driver-G06-signed-kmp-default-580.126.09_k6.4.0_150600.23.81-150600.3.80.1\n\n10 packages to upgrade, 1 new, 1 to remove.\n\nPackage download size:   294.3 MiB\n\nPackage install size change:\n              |     997.5 MiB  required by packages that will be installed\n    12.9 KiB  |  -  997.5 MiB  released by packages that will be removed\n\nBackend:  classic_rpmtrans\nContinue? [y/n/v/...? shows all options] (y): y\nDo you agree with the terms of the license? [yes/no] (no): no\nAborting installation due to the need for license confirmation.\nPlease restart the operation in interactive mode and confirm your agreement with required licenses, or use the --auto-agree-with-licenses option.\n"
+      "stdout": "\nThe following 10 packages are going to be upgraded:\n  libnvidia-gpucomp nvidia-common-G06 nvidia-compute-G06 nvidia-compute-utils-G06 nvidia-gl-G06 nvidia-modprobe nvidia-open-driver-G06-signed-kmp-meta nvidia-persistenced nvidia-userspace-meta-G06 nvidia-video-G06\n\nThe following NEW package is going to be installed:\n  nvidia-open-driver-G06-signed-kmp-default-580.126.18_k6.4.0_150600.23.87-150600.3.85.1\n\nThe following NEW patch is going to be installed:\n  openSUSE-SLE-15.6-2026-1084\n\nThe following package is going to be REMOVED:\n  nvidia-open-driver-G06-signed-kmp-default-580.126.09_k6.4.0_150600.23.81-150600.3.80.1\n\n10 packages to upgrade, 1 new, 1 to remove.\n\nPackage download size:   294.3 MiB\n\nPackage install size change:\n              |     997.5 MiB  required by packages that will be installed\n    12.9 KiB  |  -  997.5 MiB  released by packages that will be removed\n\nBackend:  classic_rpmtrans\nContinue? [y/n/v/...? shows all options] (y): y\nDo you agree with the terms of the license? [yes/no] (no): no\nAborting installation due to the need for license confirmation.\nPlease restart the operation in interactive mode and confirm your agreement with required licenses, or use the --auto-agree-with-licenses option.\n",
+      "args": [
+        "--quiet",
+        "--non-interactive",
+        "patch",
+        "--skip-interactive",
+        "--skip-not-applicable-patches"
+      ]
     }
   ]
 }
