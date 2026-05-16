@@ -7,6 +7,11 @@ Changelog
 1.3.0 (not yet released)
 ~~~~~~~~~~~~~~~~~~~~~~~~
 
+New features
+------------
+
++ `#25`_, `#30`_: add a `auto_agree_with_licenses` configuration flag.
+
 Behavioral change
 -----------------
 
@@ -19,10 +24,12 @@ Internal
 + `#26`_, `#27`_, `#29`_: review test suite.
 
 .. _#24: https://github.com/RKrahl/auto-patch/issues/24
+.. _#25: https://github.com/RKrahl/auto-patch/issues/25
 .. _#26: https://github.com/RKrahl/auto-patch/pull/26
 .. _#27: https://github.com/RKrahl/auto-patch/pull/27
 .. _#28: https://github.com/RKrahl/auto-patch/pull/28
 .. _#29: https://github.com/RKrahl/auto-patch/pull/29
+.. _#30: https://github.com/RKrahl/auto-patch/pull/30
 
 
 .. _changes-1_2_0:
