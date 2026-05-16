@@ -713,5 +713,40 @@
         "--skip-not-applicable-patches"
       ]
     }
+  ],
+  "auto_license_consent": [
+    {
+      "cmd": null,
+      "stdout": "zypper 1.14.94",
+      "capture": false
+    },
+    {
+      "cmd": "patch-check",
+      "returncode": 100,
+      "stdout": "\nCategory    | Patches\n------------+--------\nrecommended | 1\n\n1 patch needed (0 security patches)\n"
+    },
+    {
+      "cmd": "list-patches",
+      "stdout": "\nRepository                                                   | Name                        | Category    | Severity | Interactive | Status | Summary\n-------------------------------------------------------------+-----------------------------+-------------+----------+-------------+--------+-----------------------------------------------------\nUpdate repository with updates from SUSE Linux Enterprise 15 | openSUSE-SLE-15.6-2026-1084 | recommended | moderate | ---         | needed | Recommended update for nvidia-open-driver-G06-signed\n\n1 patch needed (0 security patches)\n"
+    },
+    {
+      "cmd": "patch",
+      "stdout": "\nThe following 10 packages are going to be upgraded:\n  libnvidia-gpucomp nvidia-common-G06 nvidia-compute-G06 nvidia-compute-utils-G06 nvidia-gl-G06 nvidia-modprobe nvidia-open-driver-G06-signed-kmp-meta nvidia-persistenced nvidia-userspace-meta-G06 nvidia-video-G06\n\nThe following NEW package is going to be installed:\n  nvidia-open-driver-G06-signed-kmp-default-580.126.18_k6.4.0_150600.23.87-150600.3.85.1\n\nThe following NEW patch is going to be installed:\n  openSUSE-SLE-15.6-2026-1084\n\nThe following package is going to be REMOVED:\n  nvidia-open-driver-G06-signed-kmp-default-580.126.09_k6.4.0_150600.23.81-150600.3.80.1\n\n10 packages to upgrade, 1 new, 1 to remove.\n\nPackage download size:   294.3 MiB\n\nPackage install size change:\n              |     997.5 MiB  required by packages that will be installed\n    12.9 KiB  |  -  997.5 MiB  released by packages that will be removed\n\nBackend:  classic_rpmtrans\nContinue? [y/n/v/...? shows all options] (y): y\n",
+      "args": [
+        "--quiet",
+        "--non-interactive",
+        "patch",
+        "--skip-interactive",
+        "--skip-not-applicable-patches",
+        "--auto-agree-with-licenses"
+      ]
+    },
+    {
+      "cmd": "patch-check",
+      "stdout": "\n0 patches needed (0 security patches)\n"
+    },
+    {
+      "cmd": "ps"
+    }
   ]
 }

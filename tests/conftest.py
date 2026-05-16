@@ -24,6 +24,7 @@ def get_zypper_argument_parser():
     parser.add_argument('subcmd', nargs='?')
     parser.add_argument('--skip-interactive', action='store_true')
     parser.add_argument('--skip-not-applicable-patches', action='store_true')
+    parser.add_argument('--auto-agree-with-licenses', action='store_true')
     return parser
 
 zypper_arg_parser = get_zypper_argument_parser()
@@ -133,7 +134,7 @@ class AutoPatchCaller:
         return cls(zypper_results, config)
 
     def _create_config(self, config):
-        d = { 'mailreport': {}, 'retry': {}, 'logging': {} }
+        d = { 'zypper': {}, 'mailreport': {}, 'retry': {}, 'logging': {} }
         if config is not None:
             for k in config.keys():
                 d[k].update(config[k])
