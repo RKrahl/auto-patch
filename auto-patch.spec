@@ -73,7 +73,7 @@ python3 setup.py test
 %defattr(-,root,root)
 %doc README.rst CHANGES.rst
 %license LICENSE.txt
-%config %{_sysconfdir}/auto-patch.cfg
+%config(noreplace) %{_sysconfdir}/auto-patch.cfg
 %exclude %{python3_sitelib}/*
 %{_sbindir}/auto-patch
 %{_unitdir}/*
