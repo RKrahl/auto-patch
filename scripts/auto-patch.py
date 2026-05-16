@@ -29,6 +29,9 @@ except KeyError:
     config_files = "/etc/auto-patch.cfg"
 
 config_defaults = {
+    'zypper': {
+        'auto_agree_with_licenses': "no",
+    },
     'mailreport': {
         'report': "on",
         'hostname': socket.getfqdn(),

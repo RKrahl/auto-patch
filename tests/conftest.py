@@ -133,7 +133,7 @@ class AutoPatchCaller:
         return cls(zypper_results, config)
 
     def _create_config(self, config):
-        d = { 'mailreport': {}, 'retry': {}, 'logging': {} }
+        d = { 'zypper': {}, 'mailreport': {}, 'retry': {}, 'logging': {} }
         if config is not None:
             for k in config.keys():
                 d[k].update(config[k])
