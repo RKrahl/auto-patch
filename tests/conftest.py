@@ -41,6 +41,8 @@ class mock_subprocess_run:
         self.calls += 1
         zypp_res = next(self.results_iter)
         assert Path(cmd[0]).name == "zypper"
+        if zypp_res.args:
+            assert cmd[1:] == zypp_res.args
         args = zypper_arg_parser.parse_args(args=cmd[1:])
         assert (args.version or args.subcmd) and (args.subcmd == zypp_res.cmd)
         if stdout == subprocess.PIPE:
@@ -97,8 +99,10 @@ def invoke_auto_patch(zypper_results):
 class ZypperResult:
     """Represent the result of one mock zypper call in AutoPatchCaller.
     """
-    def __init__(self, cmd, returncode=0, stdout="", stderr="", capture=True):
+    def __init__(self, cmd, args=None, returncode=0, stdout="", stderr="",
+                 capture=True):
         self.cmd = cmd
+        self.args = args
         self.returncode = returncode
         self.stdout = stdout
         self.stderr = stderr
