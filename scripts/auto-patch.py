@@ -253,6 +253,8 @@ class Zypper:
         args = ["--quiet", "--non-interactive", "patch", "--skip-interactive"]
         if self.version >= Version("1.14.69"):
             args.append("--skip-not-applicable-patches")
+        if config['zypper'].getboolean('auto_agree_with_licenses'):
+            args.append("--auto-agree-with-licenses")
         return self.call(args, stdout=stdout)
 
     def ps(self, stdout=None):
